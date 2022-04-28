@@ -5,8 +5,25 @@
 
 // Ventana LCD
 unsigned char ventanaLCD[LCD_ROWS][LCD_COLS];
+unsigned int currentDisplayLine = 0;
 
-void copiar_FLASH_RAM(const unsigned char* texto, unsigned int fila)
+// Mensajes LCD
+const unsigned char Mens_LCD_1[] = {"---- MANUS -----"};
+const unsigned char Mens_LCD_2[] = {"Crono: --:--,-  "};
+const unsigned char Mens_LCD_3[] = {"3---------------"};
+const unsigned char Mens_LCD_4[] = {"4---------------"};
+const unsigned char Mens_LCD_5[] = {"5---------------"};
+const unsigned char Mens_LCD_6[] = {"6---------------"};
+const unsigned char Mens_LCD_7[] = {"7---------------"};
+const unsigned char Mens_LCD_8[] = {"8---------------"};
+const unsigned char Mens_LCD_9[] = {"9---------------"};
+const unsigned char Mens_LCD_10[] = {"10--------------"};
+const unsigned char Mens_LCD_11[] = {"11--------------"};
+const unsigned char Mens_LCD_12[] = {"12--------------"};
+const unsigned char Mens_LCD_13[] = {"13--------------"};
+const unsigned char Mens_LCD_14[] = {"14--------------"};
+
+void copiarFlashRam(const unsigned char* texto, unsigned int fila)
 {
     unsigned int j;
     for (j = 0; j < LCD_COLS; j++)

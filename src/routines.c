@@ -1,6 +1,8 @@
 #include "defines.h"
 #include "lcd.h"
 #include "p24HJ256GP610A.h"
+#include "timers.h"
+#include "utils.h"
 
 /**
  * Funcion para atender a las interrupciones del T5
@@ -37,7 +39,7 @@ void _ISR_NO_PSV _T5Interrupt()
         estadoLCD = L2;
         break;
     case L1:
-        lcdData(ventanaLCD[0][LPos]);
+        lcdData(ventanaLCD[currentDisplayLine][LPos]);
         if (LPos == 15)
         {
             estadoLCD = HOME2;
@@ -47,7 +49,7 @@ void _ISR_NO_PSV _T5Interrupt()
             LPos++;
         break;
     case L2:
-        lcdData(ventanaLCD[1][LPos]);
+        lcdData(ventanaLCD[mod(currentDisplayLine + 1, LCD_ROWS)][LPos]);
         if (LPos == 15)
         {
             estadoLCD = HOME1;
@@ -60,6 +62,13 @@ void _ISR_NO_PSV _T5Interrupt()
         break;
     }
     IFS1bits.T5IF = 0; // Apagar flag de interrupciones
+}
+
+// Rutina de atencion a las interrupciones del T7
+void _ISR_NO_PSV _T7Interrupt()
+{
+    cronoFlag = 1;
+    IFS3bits.T7IF = 0; // Apagar el flag de petición de interrupción
 }
 
 ////////////////////////////////////
