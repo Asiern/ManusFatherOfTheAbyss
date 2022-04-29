@@ -5,12 +5,18 @@
 #include "utils.h"
 
 #define NUM_MUESTRAS 8
+#define NUM_PUERTOS 4
+
+unsigned int listaPuertos[NUM_PUERTOS] = {4, 5, 8, 9};
+unsigned int indicePuerto = 0;
 
 // Variables
 unsigned int muestrasActuales = 0;
 unsigned int calcularMedias = 0;
-unsigned int tempAcumulada;
-unsigned int potenAcumulado;
+unsigned int tempAcumulada = 0;
+unsigned int potenAcumulado = 0;
+unsigned int jpHoriAcumulado = 0;
+unsigned int jpVertAcumulado = 0;
 
 void inicADC()
 {
@@ -66,6 +72,8 @@ void inicADC()
     // Inicializar como analogicas solo las que vayamos a usar
     AD1PCFGLbits.PCFG4 = 0; // potenciometro
     AD1PCFGLbits.PCFG5 = 0; // sensor temperatura
+    AD1PCFGLbits.PCFG8 = 0;
+    AD1PCFGLbits.PCFG9 = 0;
 
     // Bits y campos relacionados con las interrupciones
     IFS0bits.AD1IF = 0;
@@ -76,6 +84,7 @@ void inicADC()
     AD1CON1bits.ADON = 1; // Habilitar el modulo ADC
 }
 
+// TODO convertir valores a decimal
 void calcularMediaMuestras()
 {
     // Temperatura
@@ -91,6 +100,13 @@ void calcularMediaMuestras()
     ventanaLCD[LCD_POT][13] = tablaCarac[(Pot & 0x0F00) >> 8];
     ventanaLCD[LCD_POT][14] = tablaCarac[(Pot & 0x00F0) >> 4];
     ventanaLCD[LCD_POT][15] = tablaCarac[(Pot & 0x000F)];
+
+    // TODO Joystick Pequeño Horizontal
+    Pot = jpHoriAcumulado / 8;
+    jpHoriAcumulado = 0;
+    ventanaLCD[LCD_JPHORI][13] = tablaCarac[(Pot & 0x0F00) >> 8];
+    ventanaLCD[LCD_JPHORI][14] = tablaCarac[(Pot & 0x00F0) >> 4];
+    ventanaLCD[LCD_JPHORI][15] = tablaCarac[(Pot & 0x000F)];
 }
 
 void _ISR_NO_PSV _ADC1Interrupt()
@@ -104,11 +120,18 @@ void _ISR_NO_PSV _ADC1Interrupt()
     case 5: // Guardar valor del sensor de potenciometro
         potenAcumulado += ADCValue;
         break;
+    case 8: // Guardar valor del joystick pequeño VERT
+        jpVertAcumulado += ADCValue;
+        break;
+    case 9: // Guardar valor del joystick pequeño HORI
+        jpHoriAcumulado += ADCValue;
+        break;
     }
     // Cambiar CHOSA para alternar lecturas entre Potenciometro y Sensor de temperatura
-    AD1CHS0bits.CH0SA = AD1CHS0bits.CH0SA == 5 ? 4 : 5;
+    indicePuerto = mod(indicePuerto + 1, NUM_PUERTOS);
+    AD1CHS0bits.CH0SA = listaPuertos[indicePuerto];
     muestrasActuales++; // Aumentar valor del contador de muestras
-    if (muestrasActuales == 2 * NUM_MUESTRAS)
+    if (muestrasActuales == NUM_PUERTOS * NUM_MUESTRAS)
     {
         calcularMedias = 1; // Habilitar flag para calcular medias
         muestrasActuales = 0;

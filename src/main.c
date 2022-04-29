@@ -1,5 +1,6 @@
 #include "adc.h"
 #include "cn.h"
+#include "gpio.h"
 #include "lcd.h"
 #include "oscilator.h"
 #include "p24HJ256GP610A.h"
@@ -8,6 +9,9 @@
 
 int main(int argc, char const* argv[])
 {
+    inicPulsadores();
+    inicPuertos();
+
     // Inicializar Oscilador
     inicOscilator();
 

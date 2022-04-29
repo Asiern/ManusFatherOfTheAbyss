@@ -14,6 +14,8 @@ extern const unsigned char Mens_LCD_1[LCD_COLS], Mens_LCD_2[LCD_COLS], Mens_LCD_
 #define LCD_CRONO 1
 #define LCD_POT 3
 #define LCD_TEMP 4
+#define LCD_JPHORI 5
+#define LCD_JPVERT 6
 
 extern unsigned int currentDisplayLine;
 

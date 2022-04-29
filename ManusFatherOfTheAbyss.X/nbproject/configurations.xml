@@ -12,6 +12,7 @@
       <itemPath>../include/utils.h</itemPath>
       <itemPath>../include/cn.h</itemPath>
       <itemPath>../include/adc.h</itemPath>
+      <itemPath>../include/gpio.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -28,6 +29,7 @@
       <itemPath>../src/utils.c</itemPath>
       <itemPath>../src/cn.c</itemPath>
       <itemPath>../src/adc.c</itemPath>
+      <itemPath>../src/gpio.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
