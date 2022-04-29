@@ -11,6 +11,7 @@
       <itemPath>../include/uart.h</itemPath>
       <itemPath>../include/utils.h</itemPath>
       <itemPath>../include/cn.h</itemPath>
+      <itemPath>../include/adc.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -22,11 +23,11 @@
       <itemPath>../src/lcd.c</itemPath>
       <itemPath>../src/main.c</itemPath>
       <itemPath>../src/oscilator.c</itemPath>
-      <itemPath>../src/routines.c</itemPath>
       <itemPath>../src/timers.c</itemPath>
       <itemPath>../src/uart.c</itemPath>
       <itemPath>../src/utils.c</itemPath>
       <itemPath>../src/cn.c</itemPath>
+      <itemPath>../src/adc.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

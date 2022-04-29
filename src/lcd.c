@@ -10,9 +10,9 @@ unsigned int currentDisplayLine = 0;
 // Mensajes LCD
 const unsigned char Mens_LCD_1[] = {"---- MANUS -----"};
 const unsigned char Mens_LCD_2[] = {"Crono: --:--,-  "};
-const unsigned char Mens_LCD_3[] = {"3---------------"};
-const unsigned char Mens_LCD_4[] = {"4---------------"};
-const unsigned char Mens_LCD_5[] = {"5---------------"};
+const unsigned char Mens_LCD_3[] = {"----------------"};
+const unsigned char Mens_LCD_4[] = {"Potenciomet  ---"};
+const unsigned char Mens_LCD_5[] = {"Temperatura  ---"};
 const unsigned char Mens_LCD_6[] = {"6---------------"};
 const unsigned char Mens_LCD_7[] = {"7---------------"};
 const unsigned char Mens_LCD_8[] = {"8---------------"};

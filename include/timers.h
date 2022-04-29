@@ -12,6 +12,7 @@ void Delay_ms(int delay);
 void Delay_us(int delay);
 
 // Timers
+void inicT3();
 void inicT5();
 void inicT7();
 

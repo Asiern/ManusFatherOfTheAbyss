@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=../src/lcd.c ../src/main.c ../src/oscilator.c ../src/routines.c ../src/timers.c ../src/uart.c ../src/utils.c ../src/cn.c
+SOURCEFILES_QUOTED_IF_SPACED=../src/lcd.c ../src/main.c ../src/oscilator.c ../src/timers.c ../src/uart.c ../src/utils.c ../src/cn.c ../src/adc.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/1360937237/lcd.o ${OBJECTDIR}/_ext/1360937237/main.o ${OBJECTDIR}/_ext/1360937237/oscilator.o ${OBJECTDIR}/_ext/1360937237/routines.o ${OBJECTDIR}/_ext/1360937237/timers.o ${OBJECTDIR}/_ext/1360937237/uart.o ${OBJECTDIR}/_ext/1360937237/utils.o ${OBJECTDIR}/_ext/1360937237/cn.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/1360937237/lcd.o.d ${OBJECTDIR}/_ext/1360937237/main.o.d ${OBJECTDIR}/_ext/1360937237/oscilator.o.d ${OBJECTDIR}/_ext/1360937237/routines.o.d ${OBJECTDIR}/_ext/1360937237/timers.o.d ${OBJECTDIR}/_ext/1360937237/uart.o.d ${OBJECTDIR}/_ext/1360937237/utils.o.d ${OBJECTDIR}/_ext/1360937237/cn.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/1360937237/lcd.o ${OBJECTDIR}/_ext/1360937237/main.o ${OBJECTDIR}/_ext/1360937237/oscilator.o ${OBJECTDIR}/_ext/1360937237/timers.o ${OBJECTDIR}/_ext/1360937237/uart.o ${OBJECTDIR}/_ext/1360937237/utils.o ${OBJECTDIR}/_ext/1360937237/cn.o ${OBJECTDIR}/_ext/1360937237/adc.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/1360937237/lcd.o.d ${OBJECTDIR}/_ext/1360937237/main.o.d ${OBJECTDIR}/_ext/1360937237/oscilator.o.d ${OBJECTDIR}/_ext/1360937237/timers.o.d ${OBJECTDIR}/_ext/1360937237/uart.o.d ${OBJECTDIR}/_ext/1360937237/utils.o.d ${OBJECTDIR}/_ext/1360937237/cn.o.d ${OBJECTDIR}/_ext/1360937237/adc.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/_ext/1360937237/lcd.o ${OBJECTDIR}/_ext/1360937237/main.o ${OBJECTDIR}/_ext/1360937237/oscilator.o ${OBJECTDIR}/_ext/1360937237/routines.o ${OBJECTDIR}/_ext/1360937237/timers.o ${OBJECTDIR}/_ext/1360937237/uart.o ${OBJECTDIR}/_ext/1360937237/utils.o ${OBJECTDIR}/_ext/1360937237/cn.o
+OBJECTFILES=${OBJECTDIR}/_ext/1360937237/lcd.o ${OBJECTDIR}/_ext/1360937237/main.o ${OBJECTDIR}/_ext/1360937237/oscilator.o ${OBJECTDIR}/_ext/1360937237/timers.o ${OBJECTDIR}/_ext/1360937237/uart.o ${OBJECTDIR}/_ext/1360937237/utils.o ${OBJECTDIR}/_ext/1360937237/cn.o ${OBJECTDIR}/_ext/1360937237/adc.o
 
 # Source Files
-SOURCEFILES=../src/lcd.c ../src/main.c ../src/oscilator.c ../src/routines.c ../src/timers.c ../src/uart.c ../src/utils.c ../src/cn.c
+SOURCEFILES=../src/lcd.c ../src/main.c ../src/oscilator.c ../src/timers.c ../src/uart.c ../src/utils.c ../src/cn.c ../src/adc.c
 
 
 CFLAGS=
@@ -115,13 +115,6 @@ ${OBJECTDIR}/_ext/1360937237/oscilator.o: ../src/oscilator.c  nbproject/Makefile
 	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/oscilator.c  -o ${OBJECTDIR}/_ext/1360937237/oscilator.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1360937237/oscilator.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_REAL_ICE=1    -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -I"../../../../opt/microchip/xc16/v1.36/support/PIC24H/h" -I"../include" -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1360937237/oscilator.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
-${OBJECTDIR}/_ext/1360937237/routines.o: ../src/routines.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/_ext/1360937237" 
-	@${RM} ${OBJECTDIR}/_ext/1360937237/routines.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360937237/routines.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/routines.c  -o ${OBJECTDIR}/_ext/1360937237/routines.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1360937237/routines.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_REAL_ICE=1    -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -I"../../../../opt/microchip/xc16/v1.36/support/PIC24H/h" -I"../include" -msmart-io=1 -Wall -msfr-warn=off  
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1360937237/routines.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
 ${OBJECTDIR}/_ext/1360937237/timers.o: ../src/timers.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}/_ext/1360937237" 
 	@${RM} ${OBJECTDIR}/_ext/1360937237/timers.o.d 
@@ -150,6 +143,13 @@ ${OBJECTDIR}/_ext/1360937237/cn.o: ../src/cn.c  nbproject/Makefile-${CND_CONF}.m
 	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/cn.c  -o ${OBJECTDIR}/_ext/1360937237/cn.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1360937237/cn.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_REAL_ICE=1    -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -I"../../../../opt/microchip/xc16/v1.36/support/PIC24H/h" -I"../include" -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1360937237/cn.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
+${OBJECTDIR}/_ext/1360937237/adc.o: ../src/adc.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/_ext/1360937237" 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/adc.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/adc.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/adc.c  -o ${OBJECTDIR}/_ext/1360937237/adc.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1360937237/adc.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_REAL_ICE=1    -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -I"../../../../opt/microchip/xc16/v1.36/support/PIC24H/h" -I"../include" -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1360937237/adc.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
 else
 ${OBJECTDIR}/_ext/1360937237/lcd.o: ../src/lcd.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}/_ext/1360937237" 
@@ -171,13 +171,6 @@ ${OBJECTDIR}/_ext/1360937237/oscilator.o: ../src/oscilator.c  nbproject/Makefile
 	@${RM} ${OBJECTDIR}/_ext/1360937237/oscilator.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/oscilator.c  -o ${OBJECTDIR}/_ext/1360937237/oscilator.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1360937237/oscilator.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -I"../../../../opt/microchip/xc16/v1.36/support/PIC24H/h" -I"../include" -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1360937237/oscilator.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
-${OBJECTDIR}/_ext/1360937237/routines.o: ../src/routines.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/_ext/1360937237" 
-	@${RM} ${OBJECTDIR}/_ext/1360937237/routines.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360937237/routines.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/routines.c  -o ${OBJECTDIR}/_ext/1360937237/routines.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1360937237/routines.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -I"../../../../opt/microchip/xc16/v1.36/support/PIC24H/h" -I"../include" -msmart-io=1 -Wall -msfr-warn=off  
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1360937237/routines.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1360937237/timers.o: ../src/timers.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}/_ext/1360937237" 
@@ -206,6 +199,13 @@ ${OBJECTDIR}/_ext/1360937237/cn.o: ../src/cn.c  nbproject/Makefile-${CND_CONF}.m
 	@${RM} ${OBJECTDIR}/_ext/1360937237/cn.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/cn.c  -o ${OBJECTDIR}/_ext/1360937237/cn.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1360937237/cn.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -I"../../../../opt/microchip/xc16/v1.36/support/PIC24H/h" -I"../include" -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1360937237/cn.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/_ext/1360937237/adc.o: ../src/adc.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/_ext/1360937237" 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/adc.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/adc.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../src/adc.c  -o ${OBJECTDIR}/_ext/1360937237/adc.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1360937237/adc.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -I"../../../../opt/microchip/xc16/v1.36/support/PIC24H/h" -I"../include" -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1360937237/adc.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 endif
 

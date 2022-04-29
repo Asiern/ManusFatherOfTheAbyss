@@ -58,8 +58,7 @@
 
 // Definiciones relacionadas con los servos y PWM
 //=========================================================
-#define T20ms                                                                                                          \
-    50000          // Periodo adecuado para conseguir 20 ms
-                   // teniendo en cuenta un prescaler de xxx.
+#define T20ms 50000 // Periodo adecuado para conseguir 20 ms
+// teniendo en cuenta un prescaler de xxx.
 #define MINPWM 0.3 // Duracion minima pulso PWM (en milisegundos)
 #define MAXPWM 2.3 // Duracion maxima pulso PWM (en milisegundos)

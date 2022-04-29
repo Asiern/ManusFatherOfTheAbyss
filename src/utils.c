@@ -5,7 +5,8 @@ unsigned int mod(unsigned int value, unsigned int divi)
     return (value % divi + divi) % divi;
 }
 
-unsigned char tablaCarac[16] = "0123456789ABCDEF";
+unsigned char tablaCarac[] = "0123456789ABCDEF";
+
 void conversionTiempo(unsigned char* dir, unsigned int val)
 {
     unsigned char dig;

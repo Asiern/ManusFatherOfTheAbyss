@@ -1,3 +1,4 @@
+#include "adc.h"
 #include "cn.h"
 #include "lcd.h"
 #include "oscilator.h"
@@ -22,6 +23,11 @@ int main(int argc, char const* argv[])
 
     inicT7();
 
+    // Configurar ADC y T3 para realizar muestreos
+    inicADC();
+    inicT3();
+
+    // Copiar mensajes en la ventana LCD
     copiarFlashRam(Mens_LCD_1, 0);
     copiarFlashRam(Mens_LCD_2, 1);
     copiarFlashRam(Mens_LCD_3, 2);
@@ -40,6 +46,11 @@ int main(int argc, char const* argv[])
     while (1)
     {
         cronometro();
+        if (calcularMedias)
+        {
+            calcularMediaMuestras();
+            calcularMedias = 0;
+        }
     }
 
     return 0;

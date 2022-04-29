@@ -14,7 +14,6 @@
 
 void inicOscilator()
 {
-
     // Reloj a 40 MHz para que las instrucciones se ejecuten a 20 MHz.
     // Fosc= Fin*M(N1*N2),  Fcy=Fosc/2
     // Fosc= 8*20/(2*2)= 40MHz for 8MHz input clock

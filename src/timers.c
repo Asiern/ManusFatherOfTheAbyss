@@ -1,6 +1,8 @@
 #include "timers.h"
+#include "defines.h"
 #include "lcd.h"
 #include "p24HJ256GP610A.h"
+#include "utils.h"
 
 unsigned int mili, deci, min, seg;
 unsigned int cronoFlag = 0;
@@ -49,6 +51,26 @@ void Delay_us(int delay)
     T9CONbits.TON = 0;
 }
 
+// Interrumpir cada 1ms
+void inicT3()
+{
+    TMR3 = 0;
+    PR3 = 20000 - 1;
+    T3CONbits.TCKPS = 0;
+    T3CONbits.TCS = 0;
+    T3CONbits.TGATE = 0;
+    T3CONbits.TON = 1;
+    IEC0bits.T3IE = 1;
+    IFS0bits.T3IF = 0;
+}
+
+// Rutina de atencion a las interrupciones del T3
+void _ISR_NO_PSV _T3Interrupt()
+{
+    AD1CON1bits.SAMP = 1; // Habilitar muestreo
+    IFS0bits.T3IF = 0;    // Apagar el flag de petición de interrupción
+}
+
 // Inicializar el temporizador 5 (escribe en la ventana LCD) cada 2.5ms
 void inicT5()
 {
@@ -60,6 +82,66 @@ void inicT5()
     T5CONbits.TGATE = 0;
     T5CONbits.TON = 1;
     IFS1bits.T5IF = 0;
+}
+
+/**
+ * Funcion para atender a las interrupciones del T5
+ *
+ * Mediante una máquina de estados (con los estados definidos en el enum llamado estadoLCD),
+ * gestionamos el envio de caracteres a la pantalla LCD.
+ *
+ * En los estados L1 y L2, escribimos en su línea correspondiente
+ * Mediante el estado HOME1, movemos el cursor al principio de la línea 1
+ * Mediante el estado HOME2, movemos el cursor al principio de la línea 2
+ *
+ * Se utiliza la variable LPos para indicar la posición en la que está escribiendo
+ */
+enum // Estados utilizados en la rutina de atencion del T5
+{
+    L1, // Estado de escritura en la linea1
+    L2, // Estado de escritura en la linea2
+    HOME1,
+    HOME2,
+} estadoLCD = HOME1; // Estado inicial L1
+
+unsigned int LPos = 0; // Posicion del caracter a enviar a la ventanaLCD
+
+void _ISR_NO_PSV _T5Interrupt()
+{
+    switch (estadoLCD)
+    {
+    case HOME1:
+        lcdCmd(0x80);
+        estadoLCD = L1;
+        break;
+    case HOME2:
+        lcdCmd(0xC0);
+        estadoLCD = L2;
+        break;
+    case L1:
+        lcdData(ventanaLCD[currentDisplayLine][LPos]);
+        if (LPos == 15)
+        {
+            estadoLCD = HOME2;
+            LPos = 0;
+        }
+        else
+            LPos++;
+        break;
+    case L2:
+        lcdData(ventanaLCD[mod(currentDisplayLine + 1, LCD_ROWS)][LPos]);
+        if (LPos == 15)
+        {
+            estadoLCD = HOME1;
+            LPos = 0;
+        }
+        else
+            LPos++;
+        break;
+    default:
+        break;
+    }
+    IFS1bits.T5IF = 0; // Apagar flag de interrupciones
 }
 
 void inicT7()
@@ -77,6 +159,13 @@ void inicT7()
     IEC3bits.T7IE = 1;   // habilitar interrupciones del temporizador t7
     T7CONbits.TGATE = 0; // Deshabilitar el modo Gate
     T7CONbits.TON = 1;   // puesta en marcha del temporizador
+}
+
+// Rutina de atencion a las interrupciones del T7
+void _ISR_NO_PSV _T7Interrupt()
+{
+    cronoFlag = 1;
+    IFS3bits.T7IF = 0; // Apagar el flag de petición de interrupción
 }
 
 void cronometro() // control del tiempo mediante el temporizador 7

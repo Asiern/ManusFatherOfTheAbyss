@@ -2,6 +2,7 @@
     "files.associations": {
         "p24hj256gp610a.h": "c",
         "uart.h": "c",
-        "defines.h": "c"
+        "defines.h": "c",
+        "lcd.h": "c"
     }
 }
