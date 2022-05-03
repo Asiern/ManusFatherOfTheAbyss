@@ -96,51 +96,37 @@ void calcularMediaMuestras()
     // Temperatura
     int Temp = tempAcumulada / NUM_MUESTRAS;
     tempAcumulada = 0;
-    ventanaLCD[LCD_TEMP][13] = tablaCarac[(Temp & 0x0F00) >> 8];
-    ventanaLCD[LCD_TEMP][14] = tablaCarac[(Temp & 0x00F0) >> 4];
-    ventanaLCD[LCD_TEMP][15] = tablaCarac[(Temp & 0x000F)];
+    conversionDeci(&(ventanaLCD[LCD_TEMP][12]), Temp, 4);
 
     // Potenciometro
     Temp = potenAcumulado / NUM_MUESTRAS;
     potenAcumulado = 0;
-    ventanaLCD[LCD_POT][13] = tablaCarac[(Temp & 0x0F00) >> 8];
-    ventanaLCD[LCD_POT][14] = tablaCarac[(Temp & 0x00F0) >> 4];
-    ventanaLCD[LCD_POT][15] = tablaCarac[(Temp & 0x000F)];
+    conversionDeci(&(ventanaLCD[LCD_POT][12]), Temp, 4);
 
     // Joystick Pequeño Horizontal
     Temp = jpHoriAcumulado / NUM_MUESTRAS;
     jpHoriAcumulado = 0;
-    ventanaLCD[LCD_JP][6] = tablaCarac[(Temp & 0x0F00) >> 8];
-    ventanaLCD[LCD_JP][7] = tablaCarac[(Temp & 0x00F0) >> 4];
-    ventanaLCD[LCD_JP][8] = tablaCarac[(Temp & 0x000F)];
+    conversionDeci(&(ventanaLCD[LCD_JP][5]), Temp, 4);
 
     // Joystick Pequeño Vertical
     Temp = jpVertAcumulado / NUM_MUESTRAS;
     jpVertAcumulado = 0;
-    ventanaLCD[LCD_JP][12] = tablaCarac[(Temp & 0x0F00) >> 8];
-    ventanaLCD[LCD_JP][13] = tablaCarac[(Temp & 0x00F0) >> 4];
-    ventanaLCD[LCD_JP][14] = tablaCarac[(Temp & 0x000F)];
+    conversionDeci(&(ventanaLCD[LCD_JP][12]), Temp, 4);
 
     // Joystick Grande X
     Temp = jXAcumulado / NUM_MUESTRAS;
     jXAcumulado = 0;
-    ventanaLCD[LCD_JG][6] = tablaCarac[(Temp & 0x0F00) >> 8];
-    ventanaLCD[LCD_JG][7] = tablaCarac[(Temp & 0x00F0) >> 4];
-    ventanaLCD[LCD_JG][8] = tablaCarac[(Temp & 0x000F)];
+    conversionDeci(&(ventanaLCD[LCD_JG][5]), Temp, 4);
 
     // Joystick Grande Y
     Temp = jYAcumulado / NUM_MUESTRAS;
     jYAcumulado = 0;
-    ventanaLCD[LCD_JG][12] = tablaCarac[(Temp & 0x0F00) >> 8];
-    ventanaLCD[LCD_JG][13] = tablaCarac[(Temp & 0x00F0) >> 4];
-    ventanaLCD[LCD_JG][14] = tablaCarac[(Temp & 0x000F)];
+    conversionDeci(&(ventanaLCD[LCD_JG][12]), Temp, 4);
 
     // Joystick Grande palanca
     Temp = jPalancaAcumulado / NUM_MUESTRAS;
     jPalancaAcumulado = 0;
-    ventanaLCD[LCD_JPalanca][8] = tablaCarac[(Temp & 0x0F00) >> 8];
-    ventanaLCD[LCD_JPalanca][9] = tablaCarac[(Temp & 0x00F0) >> 4];
-    ventanaLCD[LCD_JPalanca][10] = tablaCarac[(Temp & 0x000F)];
+    conversionDeci(&(ventanaLCD[LCD_JPalanca][8]), Temp, 4);
 }
 
 void _ISR_NO_PSV _ADC1Interrupt()
