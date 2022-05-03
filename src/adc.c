@@ -5,9 +5,9 @@
 #include "utils.h"
 
 #define NUM_MUESTRAS 8
-#define NUM_PUERTOS 4
+#define NUM_PUERTOS 7
 
-unsigned int listaPuertos[NUM_PUERTOS] = {4, 5, 8, 9};
+unsigned int listaPuertos[NUM_PUERTOS] = {4, 5, 8, 9, 0, 1, 2};
 unsigned int indicePuerto = 0;
 
 // Variables
@@ -17,6 +17,9 @@ unsigned int tempAcumulada = 0;
 unsigned int potenAcumulado = 0;
 unsigned int jpHoriAcumulado = 0;
 unsigned int jpVertAcumulado = 0;
+unsigned int jXAcumulado = 0;
+unsigned int jYAcumulado = 0;
+unsigned int jPalancaAcumulado = 0;
 
 void inicADC()
 {
@@ -72,8 +75,11 @@ void inicADC()
     // Inicializar como analogicas solo las que vayamos a usar
     AD1PCFGLbits.PCFG4 = 0; // potenciometro
     AD1PCFGLbits.PCFG5 = 0; // sensor temperatura
-    AD1PCFGLbits.PCFG8 = 0;
-    AD1PCFGLbits.PCFG9 = 0;
+    AD1PCFGLbits.PCFG8 = 0; // Joystick VERTICAL
+    AD1PCFGLbits.PCFG9 = 0; // Joystick HORIZONTAL
+    AD1PCFGLbits.PCFG0 = 0; // Joystick Grande eje X
+    AD1PCFGLbits.PCFG1 = 0; // Joystick Grande eje Y
+    AD1PCFGLbits.PCFG2 = 0; // Joystick Grande palanca
 
     // Bits y campos relacionados con las interrupciones
     IFS0bits.AD1IF = 0;
@@ -88,25 +94,53 @@ void inicADC()
 void calcularMediaMuestras()
 {
     // Temperatura
-    int Temp = tempAcumulada / 8;
+    int Temp = tempAcumulada / NUM_MUESTRAS;
     tempAcumulada = 0;
     ventanaLCD[LCD_TEMP][13] = tablaCarac[(Temp & 0x0F00) >> 8];
     ventanaLCD[LCD_TEMP][14] = tablaCarac[(Temp & 0x00F0) >> 4];
     ventanaLCD[LCD_TEMP][15] = tablaCarac[(Temp & 0x000F)];
 
     // Potenciometro
-    int Pot = potenAcumulado / 8;
+    Temp = potenAcumulado / NUM_MUESTRAS;
     potenAcumulado = 0;
-    ventanaLCD[LCD_POT][13] = tablaCarac[(Pot & 0x0F00) >> 8];
-    ventanaLCD[LCD_POT][14] = tablaCarac[(Pot & 0x00F0) >> 4];
-    ventanaLCD[LCD_POT][15] = tablaCarac[(Pot & 0x000F)];
+    ventanaLCD[LCD_POT][13] = tablaCarac[(Temp & 0x0F00) >> 8];
+    ventanaLCD[LCD_POT][14] = tablaCarac[(Temp & 0x00F0) >> 4];
+    ventanaLCD[LCD_POT][15] = tablaCarac[(Temp & 0x000F)];
 
-    // TODO Joystick Pequeño Horizontal
-    Pot = jpHoriAcumulado / 8;
+    // Joystick Pequeño Horizontal
+    Temp = jpHoriAcumulado / NUM_MUESTRAS;
     jpHoriAcumulado = 0;
-    ventanaLCD[LCD_JPHORI][13] = tablaCarac[(Pot & 0x0F00) >> 8];
-    ventanaLCD[LCD_JPHORI][14] = tablaCarac[(Pot & 0x00F0) >> 4];
-    ventanaLCD[LCD_JPHORI][15] = tablaCarac[(Pot & 0x000F)];
+    ventanaLCD[LCD_JP][6] = tablaCarac[(Temp & 0x0F00) >> 8];
+    ventanaLCD[LCD_JP][7] = tablaCarac[(Temp & 0x00F0) >> 4];
+    ventanaLCD[LCD_JP][8] = tablaCarac[(Temp & 0x000F)];
+
+    // Joystick Pequeño Vertical
+    Temp = jpVertAcumulado / NUM_MUESTRAS;
+    jpVertAcumulado = 0;
+    ventanaLCD[LCD_JP][12] = tablaCarac[(Temp & 0x0F00) >> 8];
+    ventanaLCD[LCD_JP][13] = tablaCarac[(Temp & 0x00F0) >> 4];
+    ventanaLCD[LCD_JP][14] = tablaCarac[(Temp & 0x000F)];
+
+    // Joystick Grande X
+    Temp = jXAcumulado / NUM_MUESTRAS;
+    jXAcumulado = 0;
+    ventanaLCD[LCD_JG][6] = tablaCarac[(Temp & 0x0F00) >> 8];
+    ventanaLCD[LCD_JG][7] = tablaCarac[(Temp & 0x00F0) >> 4];
+    ventanaLCD[LCD_JG][8] = tablaCarac[(Temp & 0x000F)];
+
+    // Joystick Grande Y
+    Temp = jYAcumulado / NUM_MUESTRAS;
+    jYAcumulado = 0;
+    ventanaLCD[LCD_JG][12] = tablaCarac[(Temp & 0x0F00) >> 8];
+    ventanaLCD[LCD_JG][13] = tablaCarac[(Temp & 0x00F0) >> 4];
+    ventanaLCD[LCD_JG][14] = tablaCarac[(Temp & 0x000F)];
+
+    // Joystick Grande palanca
+    Temp = jPalancaAcumulado / NUM_MUESTRAS;
+    jPalancaAcumulado = 0;
+    ventanaLCD[LCD_JPalanca][8] = tablaCarac[(Temp & 0x0F00) >> 8];
+    ventanaLCD[LCD_JPalanca][9] = tablaCarac[(Temp & 0x00F0) >> 4];
+    ventanaLCD[LCD_JPalanca][10] = tablaCarac[(Temp & 0x000F)];
 }
 
 void _ISR_NO_PSV _ADC1Interrupt()
@@ -126,8 +160,17 @@ void _ISR_NO_PSV _ADC1Interrupt()
     case 9: // Guardar valor del joystick pequeño HORI
         jpHoriAcumulado += ADCValue;
         break;
+    case 0: // Guardar valor del joystick grande eje X
+        jXAcumulado += ADCValue;
+        break;
+    case 1: // Guardar valor del joystick grande eje X
+        jYAcumulado += ADCValue;
+        break;
+    case 2: // Guardar valor del joystick grande palanca
+        jPalancaAcumulado += ADCValue;
+        break;
     }
-    // Cambiar CHOSA para alternar lecturas entre Potenciometro y Sensor de temperatura
+    // Cambiar CHOSA para alternar lecturas
     indicePuerto = mod(indicePuerto + 1, NUM_PUERTOS);
     AD1CHS0bits.CH0SA = listaPuertos[indicePuerto];
     muestrasActuales++; // Aumentar valor del contador de muestras
