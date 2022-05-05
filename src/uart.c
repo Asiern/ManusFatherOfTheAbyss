@@ -59,6 +59,10 @@ void _ISR_NO_PSV _U2RXInterrupt()
 {
     switch (U2RXREG)
     {
+    case 'm':
+        break;
+    case 'n':
+        break;
     default:
         break;
     }

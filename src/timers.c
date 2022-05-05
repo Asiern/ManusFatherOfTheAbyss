@@ -201,12 +201,10 @@ void cronometro() // control del tiempo mediante el temporizador 7
         {
             mili = 0;
             deci++;
-            LATAbits.LATA7 = !LATAbits.LATA7;
             if (deci == 10)
             {
                 deci = 0;
                 seg++;
-                LATAbits.LATA6 = !LATAbits.LATA6;
                 if (seg == 60)
                 {
                     seg = 0;

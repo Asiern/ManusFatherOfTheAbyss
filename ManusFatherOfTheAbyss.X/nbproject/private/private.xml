@@ -3,7 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/shado/ManusFatherOfTheAbyss/src/main.c</file>
+            <file>file:/home/asiern/ManusFatherOfTheAbyss/src/main.c</file>
+            <file>file:/home/asiern/ManusFatherOfTheAbyss/src/lcd.c</file>
+            <file>file:/home/asiern/ManusFatherOfTheAbyss/src/timers.c</file>
+            <file>file:/home/asiern/ManusFatherOfTheAbyss/src/adc.c</file>
         </group>
     </open-files>
 </project-private>
