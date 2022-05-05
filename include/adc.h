@@ -22,6 +22,8 @@ extern unsigned int jXAcumulado;       // Acumulación de las muestras del eje X
 extern unsigned int jYAcumulado;       // Acumulación de las muestras del eje Y (joystick grande)
 extern unsigned int jPalancaAcumulado; // Acumulación de la palanca (joystick grande)
 
+extern unsigned int valoresFinalesJGrande[2];
+
 void inicADC();
 void calcularMediaMuestras();
 

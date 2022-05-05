@@ -1,2 +1,6 @@
 /ManusFatherOfTheAbyss.X/build/
 /ManusFatherOfTheAbyss.X/dist/
+/ManusFatherOfTheAbyss.X/.generated_files/**
+CppProperties.json
+
+.vs/**

@@ -3,6 +3,8 @@
 #include "lcd.h"
 #include "p24HJ256GP610A.h"
 #include "utils.h"
+#include "adc.h"
+#include "ocpwm.h"
 
 unsigned int mili, deci, min, seg;
 unsigned int cronoFlag = 0;
@@ -64,6 +66,17 @@ void inicT2()
     IFS0bits.T2IF = 0;
     IEC0bits.T2IE = 1;
 }
+
+
+
+void _ISR_NO_PSV _T2Interrupt()
+{
+    if (!controlarMedianteAnalogico)
+        return;
+    OC1RS = conversionAnalogicoAServo(valoresFinalesJGrande[1]);
+    
+}
+
 
 // Interrumpir cada 1ms
 void inicT3()

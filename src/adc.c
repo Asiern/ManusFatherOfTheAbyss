@@ -21,6 +21,9 @@ unsigned int jXAcumulado = 0;
 unsigned int jYAcumulado = 0;
 unsigned int jPalancaAcumulado = 0;
 
+
+unsigned int valoresFinalesJGrande[2] = {0};
+
 void inicADC()
 {
     muestrasActuales = 0;
@@ -114,14 +117,14 @@ void calcularMediaMuestras()
     conversionDeci(&(ventanaLCD[LCD_JP][12]), Temp, 4);
 
     // Joystick Grande X
-    Temp = jXAcumulado / NUM_MUESTRAS;
+    valoresFinalesJGrande[0] = jXAcumulado / NUM_MUESTRAS;
     jXAcumulado = 0;
-    conversionDeci(&(ventanaLCD[LCD_JG][5]), Temp, 4);
+    conversionDeci(&(ventanaLCD[LCD_JG][5]), valoresFinalesJGrande[0], 4);
 
     // Joystick Grande Y
-    Temp = jYAcumulado / NUM_MUESTRAS;
+    valoresFinalesJGrande[1] = jYAcumulado / NUM_MUESTRAS;
     jYAcumulado = 0;
-    conversionDeci(&(ventanaLCD[LCD_JG][12]), Temp, 4);
+    conversionDeci(&(ventanaLCD[LCD_JG][12]), valoresFinalesJGrande[1], 4);
 
     // Joystick Grande palanca
     Temp = jPalancaAcumulado / NUM_MUESTRAS;
