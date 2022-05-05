@@ -13,16 +13,16 @@ unsigned int indicePuerto = 0;
 // Variables
 unsigned int muestrasActuales = 0;
 unsigned int calcularMedias = 0;
-unsigned int tempAcumulada = 0;
-unsigned int potenAcumulado = 0;
-unsigned int jpHoriAcumulado = 0;
-unsigned int jpVertAcumulado = 0;
-unsigned int jXAcumulado = 0;
-unsigned int jYAcumulado = 0;
-unsigned int jPalancaAcumulado = 0;
-
-
-unsigned int valoresFinalesJGrande[2] = {0};
+unsigned int tempVec[NUM_MUESTRAS] = {0, 0, 0, 0, 0, 0, 0, 0};
+unsigned int potenVec[NUM_MUESTRAS] = {0, 0, 0, 0, 0, 0, 0, 0};
+axis jgVec[NUM_MUESTRAS];
+axis jpVec[NUM_MUESTRAS];
+unsigned int jPalancaVec[NUM_MUESTRAS] = {0, 0, 0, 0, 0, 0, 0, 0};
+axis valoresFinalesJGrande;
+axis valoresFinalesJPeq;
+unsigned int tempFinal = 0;
+unsigned int potenFinal = 0;
+unsigned int palancaFinal = 0;
 
 void inicADC()
 {
@@ -93,76 +93,84 @@ void inicADC()
     AD1CON1bits.ADON = 1; // Habilitar el modulo ADC
 }
 
-// TODO convertir valores a decimal
 void calcularMediaMuestras()
 {
+    int i, Temp = 0, Pot = 0, Palanca = 0;
+    axis jp;
+    jp.x = 0;
+    jp.y = 0;
+    axis jg;
+    jg.x = 0;
+    jg.y = 0;
+    // Sumas
+    for (i = 0; i < NUM_MUESTRAS; i++)
+    {
+        Temp += tempVec[i];
+        Pot += potenVec[i];
+        jp.x += jpVec[i].x;
+        jp.y += jpVec[i].y;
+        jg.x += jgVec[i].x;
+        jg.y += jgVec[i].y;
+        Palanca += jPalancaVec[i];
+    }
     // Temperatura
-    int Temp = tempAcumulada / NUM_MUESTRAS;
-    tempAcumulada = 0;
-    conversionDeci(&(ventanaLCD[LCD_TEMP][12]), Temp, 4);
+    tempFinal = Temp / NUM_MUESTRAS;
+    conversionDeci(&(ventanaLCD[LCD_TEMP][12]), tempFinal, 4);
 
     // Potenciometro
-    Temp = potenAcumulado / NUM_MUESTRAS;
-    potenAcumulado = 0;
-    conversionDeci(&(ventanaLCD[LCD_POT][12]), Temp, 4);
+    potenFinal = Pot / NUM_MUESTRAS;
+    conversionDeci(&(ventanaLCD[LCD_POT][12]), potenFinal, 4);
 
-    // Joystick Pequeño Horizontal
-    Temp = jpHoriAcumulado / NUM_MUESTRAS;
-    jpHoriAcumulado = 0;
-    conversionDeci(&(ventanaLCD[LCD_JP][5]), Temp, 4);
+    // Joystick Pequeño
+    valoresFinalesJPeq.x = jp.x / NUM_MUESTRAS;
+    valoresFinalesJPeq.y = jp.y / NUM_MUESTRAS;
+    conversionDeci(&(ventanaLCD[LCD_JP][5]), valoresFinalesJPeq.x, 4);
+    conversionDeci(&(ventanaLCD[LCD_JP][12]), valoresFinalesJPeq.y, 4);
 
-    // Joystick Pequeño Vertical
-    Temp = jpVertAcumulado / NUM_MUESTRAS;
-    jpVertAcumulado = 0;
-    conversionDeci(&(ventanaLCD[LCD_JP][12]), Temp, 4);
-
-    // Joystick Grande X
-    valoresFinalesJGrande[0] = jXAcumulado / NUM_MUESTRAS;
-    jXAcumulado = 0;
-    conversionDeci(&(ventanaLCD[LCD_JG][5]), valoresFinalesJGrande[0], 4);
-
-    // Joystick Grande Y
-    valoresFinalesJGrande[1] = jYAcumulado / NUM_MUESTRAS;
-    jYAcumulado = 0;
-    conversionDeci(&(ventanaLCD[LCD_JG][12]), valoresFinalesJGrande[1], 4);
+    // Joystick Grande
+    valoresFinalesJGrande.x = jg.x / NUM_MUESTRAS;
+    valoresFinalesJGrande.y = jg.y / NUM_MUESTRAS;
+    conversionDeci(&(ventanaLCD[LCD_JG][5]), valoresFinalesJGrande.x, 4);
+    conversionDeci(&(ventanaLCD[LCD_JG][12]), valoresFinalesJGrande.y, 4);
 
     // Joystick Grande palanca
-    Temp = jPalancaAcumulado / NUM_MUESTRAS;
-    jPalancaAcumulado = 0;
-    conversionDeci(&(ventanaLCD[LCD_JPalanca][8]), Temp, 4);
+    palancaFinal = Palanca / NUM_MUESTRAS;
+    conversionDeci(&(ventanaLCD[LCD_JPalanca][8]), palancaFinal, 4);
 }
 
 void _ISR_NO_PSV _ADC1Interrupt()
 {
     unsigned int ADCValue = ADC1BUF0;
+    unsigned int indice = muestrasActuales / NUM_MUESTRAS;
     switch (AD1CHS0bits.CH0SA)
     {
     case 4: // Guardar valor del sensor del temperatura
-        tempAcumulada += ADCValue;
+        tempVec[indice] = ADCValue;
         break;
     case 5: // Guardar valor del sensor de potenciometro
-        potenAcumulado += ADCValue;
+        potenVec[indice] = ADCValue;
         break;
     case 8: // Guardar valor del joystick pequeño VERT
-        jpVertAcumulado += ADCValue;
+        jpVec[indice].y = ADCValue;
         break;
     case 9: // Guardar valor del joystick pequeño HORI
-        jpHoriAcumulado += ADCValue;
+        jpVec[indice].x = ADCValue;
         break;
     case 0: // Guardar valor del joystick grande eje X
-        jXAcumulado += ADCValue;
+        jgVec[indice].x = ADCValue;
         break;
-    case 1: // Guardar valor del joystick grande eje X
-        jYAcumulado += ADCValue;
+    case 1: // Guardar valor del joystick grande eje Y
+        jgVec[indice].y = ADCValue;
         break;
     case 2: // Guardar valor del joystick grande palanca
-        jPalancaAcumulado += ADCValue;
+        jPalancaVec[indice] = ADCValue;
         break;
     }
     // Cambiar CHOSA para alternar lecturas
     indicePuerto = mod(indicePuerto + 1, NUM_PUERTOS);
     AD1CHS0bits.CH0SA = listaPuertos[indicePuerto];
     muestrasActuales++; // Aumentar valor del contador de muestras
+
     if (muestrasActuales == NUM_PUERTOS * NUM_MUESTRAS)
     {
         calcularMedias = 1; // Habilitar flag para calcular medias
