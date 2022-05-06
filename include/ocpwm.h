@@ -7,10 +7,13 @@
 #ifndef _OCPWM_H
 #define _OCPWM_H
 
+extern unsigned int DUTY_MIN; // valor minimo de DUTY
+extern unsigned int DUTY_MAX; // valor maximo de DUTY
+
 #define NUM_MOTORES 1
 
-extern int controlarMedianteAnalogico;
+extern unsigned int duty1, duty2, duty3, duty4, duty5;
 
-void inic_OC1();
+void inicDuty();
 
 #endif

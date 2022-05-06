@@ -1,5 +1,7 @@
 #include "utils.h"
 #include "defines.h"
+#include "ocpwm.h"
+
 unsigned int mod(unsigned int value, unsigned int divi)
 {
     return (value % divi + divi) % divi;
@@ -38,10 +40,7 @@ void conversionDeci(unsigned char* dir, unsigned int val, unsigned int length)
     }
 }
 
-
-unsigned int  conversionAnalogicoAServo(unsigned int valorAnalogico)
+unsigned int conversionAnalogicoAServo(unsigned int valorAnalogico)
 {
-    unsigned int DUTY_MIN = T20ms / 20 * MINPWM; // valor minimo de DUTY
-    unsigned int DUTY_MAX = T20ms / 20 * MAXPWM; // valor maximo de DUTY
     return DUTY_MIN + ((valorAnalogico / 1023.0) * (DUTY_MAX - DUTY_MIN));
 }

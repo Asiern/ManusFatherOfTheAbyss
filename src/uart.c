@@ -1,8 +1,12 @@
 #include "uart.h"
 #include "defines.h"
 #include "lcd.h"
+#include "ocpwm.h"
 #include "p24HJ256GP610A.h"
 #include "timers.h"
+#include "utils.h"
+
+unsigned int controlServos = CONTROL_TECLADO;
 
 void inicUART()
 {
@@ -57,11 +61,30 @@ int TPos = 0; // Posicion del caracter a enviar por UART de la ventanaLCD
 
 void _ISR_NO_PSV _U2RXInterrupt()
 {
+    // Activar control por teclado cuando se reciva cualquier tecla por UART
+    if (controlServos == CONTROL_ANALOGICO)
+    {
+        controlServos = CONTROL_TECLADO;
+        IFS1bits.U2RXIF = 0;
+        return;
+    }
+
     switch (U2RXREG)
     {
+    case '1':
+        controlServos = CONTROL_ANALOGICO;
+        break;
     case 'm':
+        duty1 = duty1 + 50 < DUTY_MAX ? duty1 + 50 : DUTY_MAX;
         break;
     case 'n':
+        duty1 = duty1 - 50 < DUTY_MIN ? duty1 - 50 : DUTY_MIN;
+        break;
+    case 'v':
+        duty2 = duty2 + 50 < DUTY_MAX ? duty2 + 50 : DUTY_MAX;
+        break;
+    case 'b':
+        duty2 = duty2 - 50 < DUTY_MIN ? duty2 - 50 : DUTY_MIN;
         break;
     default:
         break;

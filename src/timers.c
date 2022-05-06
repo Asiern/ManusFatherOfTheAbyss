@@ -4,10 +4,12 @@
 #include "lcd.h"
 #include "ocpwm.h"
 #include "p24HJ256GP610A.h"
+#include "uart.h"
 #include "utils.h"
 
 unsigned int mili, deci, min, seg;
 unsigned int cronoFlag = 0;
+unsigned int estado_pwm = 0;
 
 void Delay_ms(int delay)
 {
@@ -58,7 +60,6 @@ void inicT2()
 {
     TMR2 = 0;
     PR2 = T20ms;
-    TRISDbits.TRISD0 = 0;
     T2CONbits.TCKPS = 1;
     T2CONbits.TCS = 0;
     T2CONbits.TGATE = 0;
@@ -69,9 +70,60 @@ void inicT2()
 
 void _ISR_NO_PSV _T2Interrupt()
 {
-    if (!controlarMedianteAnalogico)
-        return;
-    OC1RS = conversionAnalogicoAServo(valoresFinalesJGrande.x);
+    switch (estado_pwm)
+    {
+    case 0:
+        LATDbits.LATD0 = 1;
+        PR2 = duty1;
+        estado_pwm = 1;
+        break;
+    case 1:
+        LATDbits.LATD0 = 0;
+        PR2 = T20ms - PR2;
+        estado_pwm = 2;
+        break;
+    case 2:
+        LATDbits.LATD1 = 1;
+        PR2 = duty2;
+        estado_pwm = 3;
+        break;
+    case 3:
+        LATDbits.LATD1 = 0;
+        PR2 = T20ms - PR2;
+        estado_pwm = 4;
+        break;
+    case 4:
+        LATDbits.LATD2 = 1;
+        PR2 = duty3;
+        estado_pwm = 5;
+        break;
+    case 5:
+        LATDbits.LATD2 = 0;
+        PR2 = T20ms - PR2;
+        estado_pwm = 6;
+        break;
+    case 6:
+        LATDbits.LATD3 = 1;
+        PR2 = duty4;
+        estado_pwm = 7;
+        break;
+    case 7:
+        LATDbits.LATD3 = 0;
+        PR2 = T20ms - PR2;
+        estado_pwm = 8;
+        break;
+    case 8:
+        LATDbits.LATD4 = 1;
+        PR2 = duty5;
+        estado_pwm = 9;
+        break;
+    case 9:
+        LATDbits.LATD4 = 0;
+        PR2 = T20ms - PR2;
+        estado_pwm = 0;
+        break;
+    }
+    IFS0bits.T2IF = 0;
 }
 
 // Interrumpir cada 1ms

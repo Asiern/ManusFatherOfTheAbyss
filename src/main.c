@@ -2,13 +2,16 @@
 #include "cn.h"
 #include "gpio.h"
 #include "lcd.h"
+#include "ocpwm.h"
 #include "oscilator.h"
 #include "p24HJ256GP610A.h"
 #include "timers.h"
 #include "uart.h"
+#include "utils.h"
 
 int main(int argc, char const* argv[])
 {
+    // Inicializar pines
     inicPulsadores();
     inicPuertos();
 
@@ -30,6 +33,10 @@ int main(int argc, char const* argv[])
     // Configurar ADC y T3 para realizar muestreos
     inicADC();
     inicT3();
+
+    // Inicializar PWM
+    inicDuty();
+    inicT2();
 
     // Copiar mensajes en la ventana LCD
     copiarFlashRam(Mens_LCD_1, 0);
@@ -55,6 +62,13 @@ int main(int argc, char const* argv[])
             calcularMediaMuestras();
             calcularMedias = 0;
         }
+        if (controlServos == CONTROL_ANALOGICO)
+        {
+            duty1 = conversionAnalogicoAServo(valoresFinalesJPeq.x);
+            duty2 = conversionAnalogicoAServo(valoresFinalesJPeq.y);
+        }
+        conversionDeci(&(ventanaLCD[LCD_S1_S1][3]), duty1, 4);
+        conversionDeci(&(ventanaLCD[LCD_S1_S1][11]), duty2, 4);
     }
 
     return 0;

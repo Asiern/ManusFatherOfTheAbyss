@@ -17,6 +17,7 @@ extern const unsigned char Mens_LCD_1[LCD_COLS], Mens_LCD_2[LCD_COLS], Mens_LCD_
 #define LCD_JP 5
 #define LCD_JG 6
 #define LCD_JPalanca 7
+#define LCD_S1_S1 8
 
 extern unsigned int currentDisplayLine;
 
