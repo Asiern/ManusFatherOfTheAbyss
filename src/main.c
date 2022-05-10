@@ -19,6 +19,8 @@
 #include "uart.h"
 #include "utils.h"
 
+extern int end = 0;
+
 int main(int argc, char const* argv[])
 {
     // Inicializar pines
@@ -64,7 +66,7 @@ int main(int argc, char const* argv[])
     copiarFlashRam(Mens_LCD_13, 12);
     copiarFlashRam(Mens_LCD_14, 13);
 
-    while (1)
+    while (!end)
     {
         cronometro();
         if (calcularMedias)
@@ -87,5 +89,7 @@ int main(int argc, char const* argv[])
         conversionDeci(&(ventanaLCD[LCD_S5][3]), duty5, 4);
     }
 
+    // Antes de terminar mover los servos a una posición segura
+    moverPosicionSegura();
     return 0;
 }

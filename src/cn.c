@@ -26,5 +26,8 @@ void _ISR_NO_PSV _CNInterrupt()
     // Interrupcion S3
     if (!PORTDbits.RD6)
         currentDisplayLine = mod(currentDisplayLine + 1, LCD_ROWS); // Actualizar valor de currentDisplayLine
-    IFS1bits.CNIF = 0;                                              // Apagar el flag de petición de interrupción
+    // Interrupcion pulsador joystick pequeño
+    if (!PORTBbits.RB10)
+        end = 1;       // Encender flag de finalizado
+    IFS1bits.CNIF = 0; // Apagar el flag de petición de interrupción
 }
