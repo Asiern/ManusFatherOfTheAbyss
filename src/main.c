@@ -66,9 +66,15 @@ int main(int argc, char const* argv[])
         {
             duty1 = conversionAnalogicoAServo(valoresFinalesJPeq.x);
             duty2 = conversionAnalogicoAServo(valoresFinalesJPeq.y);
+            duty3 = conversionAnalogicoAServo(valoresFinalesJGrande.x);
+            duty4 = conversionAnalogicoAServo(valoresFinalesJGrande.y);
+            duty5 = conversionAnalogicoAServo(palancaFinal);
         }
-        conversionDeci(&(ventanaLCD[LCD_S1_S1][3]), duty1, 4);
-        conversionDeci(&(ventanaLCD[LCD_S1_S1][11]), duty2, 4);
+        conversionDeci(&(ventanaLCD[LCD_S1_S2][3]), duty1, 4);
+        conversionDeci(&(ventanaLCD[LCD_S1_S2][11]), duty2, 4);
+        conversionDeci(&(ventanaLCD[LCD_S3_S4][3]), duty3, 4);
+        conversionDeci(&(ventanaLCD[LCD_S3_S4][11]), duty4, 4);
+        conversionDeci(&(ventanaLCD[LCD_S5][3]), duty5, 4);
     }
 
     return 0;

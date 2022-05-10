@@ -73,53 +73,59 @@ void _ISR_NO_PSV _T2Interrupt()
     switch (estado_pwm)
     {
     case 0:
-        LATDbits.LATD0 = 1;
-        PR2 = duty1;
+        LATDbits.LATD0 = 0;
+        LATDbits.LATD1 = 0;
+        LATDbits.LATD2 = 0;
+        LATDbits.LATD3 = 0;
+        LATDbits.LATD4 = 0;
+        TMR2 = 0;
+        PR2 = T20ms;
         estado_pwm = 1;
         break;
     case 1:
-        LATDbits.LATD0 = 0;
-        PR2 = T20ms - PR2;
+        LATDbits.LATD0 = 1;
+        TMR2 = 0;
+        PR2 = duty1;
         estado_pwm = 2;
         break;
     case 2:
+        LATDbits.LATD0 = 0;
         LATDbits.LATD1 = 1;
+        LATDbits.LATD2 = 0;
+        LATDbits.LATD3 = 0;
+        LATDbits.LATD4 = 0;
+        TMR2 = 0;
         PR2 = duty2;
         estado_pwm = 3;
         break;
     case 3:
+        LATDbits.LATD0 = 0;
         LATDbits.LATD1 = 0;
-        PR2 = T20ms - PR2;
+        LATDbits.LATD2 = 1;
+        LATDbits.LATD3 = 0;
+        LATDbits.LATD4 = 0;
+        TMR2 = 0;
+        PR2 = duty3;
         estado_pwm = 4;
         break;
     case 4:
-        LATDbits.LATD2 = 1;
-        PR2 = duty3;
+        LATDbits.LATD0 = 0;
+        LATDbits.LATD1 = 0;
+        LATDbits.LATD2 = 0;
+        LATDbits.LATD3 = 1;
+        LATDbits.LATD4 = 0;
+        TMR2 = 0;
+        PR2 = duty4;
         estado_pwm = 5;
         break;
     case 5:
+        LATDbits.LATD0 = 0;
+        LATDbits.LATD1 = 0;
         LATDbits.LATD2 = 0;
-        PR2 = T20ms - PR2;
-        estado_pwm = 6;
-        break;
-    case 6:
-        LATDbits.LATD3 = 1;
-        PR2 = duty4;
-        estado_pwm = 7;
-        break;
-    case 7:
         LATDbits.LATD3 = 0;
-        PR2 = T20ms - PR2;
-        estado_pwm = 8;
-        break;
-    case 8:
         LATDbits.LATD4 = 1;
+        TMR2 = 0;
         PR2 = duty5;
-        estado_pwm = 9;
-        break;
-    case 9:
-        LATDbits.LATD4 = 0;
-        PR2 = T20ms - PR2;
         estado_pwm = 0;
         break;
     }

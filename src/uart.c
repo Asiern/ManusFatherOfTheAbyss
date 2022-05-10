@@ -78,13 +78,13 @@ void _ISR_NO_PSV _U2RXInterrupt()
         duty1 = duty1 + 50 < DUTY_MAX ? duty1 + 50 : DUTY_MAX;
         break;
     case 'n':
-        duty1 = duty1 - 50 < DUTY_MIN ? duty1 - 50 : DUTY_MIN;
+        duty1 = duty1 - 50 > DUTY_MIN ? duty1 - 50 : DUTY_MIN;
         break;
     case 'v':
         duty2 = duty2 + 50 < DUTY_MAX ? duty2 + 50 : DUTY_MAX;
         break;
     case 'b':
-        duty2 = duty2 - 50 < DUTY_MIN ? duty2 - 50 : DUTY_MIN;
+        duty2 = duty2 - 50 > DUTY_MIN ? duty2 - 50 : DUTY_MIN;
         break;
     default:
         break;

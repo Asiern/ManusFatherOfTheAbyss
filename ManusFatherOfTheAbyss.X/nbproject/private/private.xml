@@ -6,6 +6,8 @@
             <file>file:/home/asiern/ManusFatherOfTheAbyss/src/main.c</file>
             <file>file:/home/asiern/ManusFatherOfTheAbyss/src/lcd.c</file>
             <file>file:/home/asiern/ManusFatherOfTheAbyss/src/uart.c</file>
+            <file>file:/home/asiern/ManusFatherOfTheAbyss/src/utils.c</file>
+            <file>file:/home/asiern/ManusFatherOfTheAbyss/include/utils.h</file>
             <file>file:/home/asiern/ManusFatherOfTheAbyss/src/timers.c</file>
             <file>file:/home/asiern/ManusFatherOfTheAbyss/src/adc.c</file>
         </group>
