@@ -56,6 +56,24 @@ void inicUART()
     U2TXREG = 0;
 }
 
+/**
+ * @brief Recibir datos por UART
+ *
+ * CAMBIAR CONTROL
+ * -------------------
+ * UART => pulsar cualquier tecla del teclado
+ * ANALÓGICO => tecla 1
+ *
+ * MOVIMENTO SERVOS
+ * -------------------
+ * Numero | + | - |
+ *   1    | m | n |
+ *   2    | v | b |
+ *   3    | c | x |
+ *   4    | l | k |
+ *   5    | j | h |
+ *
+ */
 void _ISR_NO_PSV _U2RXInterrupt()
 {
     // Activar control por teclado cuando se reciva cualquier tecla por UART
