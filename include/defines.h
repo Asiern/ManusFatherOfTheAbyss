@@ -1,4 +1,12 @@
-// definiciones generales
+/**
+ * @file defines.h
+ * @author Joseba Uranga & Asier Nuñez
+ * @version 0.1
+ * @date 2022-05-10
+ *
+ * @copyright Copyright (c) 2022
+ *
+ */
 
 #define Nop() __builtin_nop()
 
@@ -8,13 +16,11 @@
 // definiciones para la pantalla LCD
 /////////////////////////////////////
 
-/*
-   For Explorer 16 board, here are the data and control signal definitions
-   RS -> RB15
-   E  -> RD4
-   RW -> RD5
-   DATA -> RE0 - RE7
-*/
+// For Explorer 16 board, here are the data and control signal definitions
+// RS -> RB15
+// E  -> RD4
+// RW -> RD5
+// DATA -> RE0 - RE7
 
 // Control signal data pins
 #define RW LATDbits.LATD5  // LCD R/W signal
@@ -31,9 +37,9 @@
 #define DATAPORT PORTE
 #define TRISDATA TRISE // I/O setup for data Port
 
-/////////////////////
+////////////////////////////////////
 // definiciones posiciones cronometro
-//////////////////////
+///////////////////////////////////
 #define posds 13
 #define posseg 10
 #define posmin 7

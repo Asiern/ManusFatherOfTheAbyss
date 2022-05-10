@@ -1,3 +1,12 @@
+/**
+ * @file ocpwm.c
+ * @author Joseba Uranga & Asier Nuñez
+ * @version 0.1
+ * @date 2022-05-10
+ *
+ * @copyright Copyright (c) 2022
+ *
+ */
 
 #include "ocpwm.h"
 #include "defines.h"
@@ -15,4 +24,16 @@ void inicDuty()
     duty3 = DUTY_MAX / 2;
     duty4 = DUTY_MAX / 2;
     duty5 = DUTY_MAX / 2;
+}
+
+/**
+ * @brief Mover los servos a la posición segura
+ */
+void moverPosicionSegura()
+{
+    duty1 = S1_SAFE;
+    duty2 = S2_SAFE;
+    duty3 = S3_SAFE;
+    duty4 = S4_SAFE;
+    duty5 = S5_SAFE;
 }

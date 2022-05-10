@@ -1,3 +1,13 @@
+/**
+ * @file adc.c
+ * @author Joseba Uranga & Asier Nuñez
+ * @version 0.1
+ * @date 2022-05-10
+ *
+ * @copyright Copyright (c) 2022
+ *
+ */
+
 #include "adc.h"
 #include "defines.h"
 #include "lcd.h"

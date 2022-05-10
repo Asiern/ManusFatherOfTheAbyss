@@ -1,3 +1,13 @@
+/**
+ * @file oscilator.c
+ * @author Joseba Uranga & Asier Nuñez
+ * @version 0.1
+ * @date 2022-05-10
+ *
+ * @copyright Copyright (c) 2022
+ *
+ */
+
 #include "oscilator.h"
 #include "p24HJ256GP610A.h"
 
@@ -33,6 +43,5 @@ void inicOscilator()
 
     // Wait for PLL to lock
     while (OSCCONbits.LOCK != 1)
-    {
-    }
+        ;
 }

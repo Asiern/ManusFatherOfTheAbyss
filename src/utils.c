@@ -1,3 +1,13 @@
+/**
+ * @file utils.c
+ * @author Joseba Uranga & Asier Nuñez
+ * @version 0.1
+ * @date 2022-05-10
+ *
+ * @copyright Copyright (c) 2022
+ *
+ */
+
 #include "utils.h"
 #include "defines.h"
 #include "ocpwm.h"
@@ -33,7 +43,7 @@ void conversionDeci(unsigned char* dir, unsigned int val, unsigned int length)
 {
     unsigned int i = 1;
 
-        for (; i <= length; i++)
+    for (; i <= length; i++)
     {
         dir[length - i] = (char)((val % 10) + '0');
         val /= 10;

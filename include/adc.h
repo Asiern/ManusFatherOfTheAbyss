@@ -1,5 +1,12 @@
-#ifndef _ADC_H
-#define _ADH_H
+/**
+ * @file adc.h
+ * @author Joseba Uranga & Asier Nuñez
+ * @version 0.1
+ * @date 2022-05-10
+ *
+ * @copyright Copyright (c) 2022
+ *
+ */
 
 // Joystick pequeño
 // VERT RB8 => AN8
@@ -10,6 +17,9 @@
 // Px      RB0 => AN0
 // Py      RB1 => AN1
 // Palanca RB2 => AN2
+
+#ifndef _ADC_H
+#define _ADH_H
 
 typedef struct
 {

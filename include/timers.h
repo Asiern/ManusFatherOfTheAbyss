@@ -1,3 +1,13 @@
+/**
+ * @file timers.h
+ * @author Joseba Uranga & Asier Nuñez
+ * @version 0.1
+ * @date 2022-05-10
+ *
+ * @copyright Copyright (c) 2022
+ *
+ */
+
 // T2 se utiliza para simular el pwm
 // T3 se utiliza para el modulo ADC
 // T5 se utiliza para escribir en la ventanaLCD
