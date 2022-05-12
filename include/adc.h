@@ -11,7 +11,7 @@
 // Joystick pequeño
 // VERT RB8 => AN8
 // HORZ RB9 => AN9
-// SEL RB10 => AN10
+// SEL RB15 => AN15 => CN12
 
 // Joystick grande
 // Px      RB0 => AN0

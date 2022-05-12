@@ -26,10 +26,5 @@ void inicPuertos()
     TRISBbits.TRISB2 = 1;
     TRISBbits.TRISB8 = 1;
     TRISBbits.TRISB9 = 1;
-    TRISBbits.TRISB10 = 1;
-    TRISDbits.TRISD0 = 0; // Servo 1
-    TRISDbits.TRISD1 = 0; // Servo 2
-    TRISDbits.TRISD2 = 0; // Servo 3
-    TRISDbits.TRISD3 = 0; // Servo 4
-    TRISDbits.TRISD8 = 0; // Servo 5
+    TRISDbits.TRISD13 = 1;
 }

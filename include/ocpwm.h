@@ -21,15 +21,16 @@ extern unsigned int DUTY_MIN; // valor minimo de DUTY
 extern unsigned int DUTY_MAX; // valor maximo de DUTY
 
 // Safe positions
-#define S1_SAFE 3850
-#define S2_SAFE 5114
-#define S3_SAFE 4930
-#define S4_SAFE 5 // TODO añadir posicion segura S4
-#define S5_SAFE 5 // TODO añadir posicion segura S5
+#define S1_SAFE 3650
+#define S2_SAFE 5800
+#define S3_SAFE 6250
+#define S4_SAFE 2900
+#define S5_SAFE 3750
 
 extern unsigned int duty1, duty2, duty3, duty4, duty5;
 
 void inicDuty();
+void inicPWM();
 void moverPosicionSegura();
 
 #endif

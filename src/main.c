@@ -19,7 +19,7 @@
 #include "uart.h"
 #include "utils.h"
 
-extern int end = 0;
+unsigned int end = 0;
 
 int main(int argc, char const* argv[])
 {
@@ -48,6 +48,7 @@ int main(int argc, char const* argv[])
 
     // Inicializar PWM
     inicDuty();
+    inicPWM();
     inicT2();
 
     // Copiar mensajes en la ventana LCD
@@ -91,5 +92,8 @@ int main(int argc, char const* argv[])
 
     // Antes de terminar mover los servos a una posición segura
     moverPosicionSegura();
+    while (1)
+        ;
+
     return 0;
 }

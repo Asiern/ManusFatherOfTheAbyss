@@ -20,6 +20,7 @@
 unsigned int mili, deci, min, seg;
 unsigned int cronoFlag = 0;
 unsigned int estado_pwm = 0;
+unsigned int PWM_acumula = 0;
 
 void Delay_ms(int delay)
 {
@@ -73,9 +74,9 @@ void inicT2()
     T2CONbits.TCKPS = 1;
     T2CONbits.TCS = 0;
     T2CONbits.TGATE = 0;
-    T2CONbits.TON = 1;
     IFS0bits.T2IF = 0;
     IEC0bits.T2IE = 1;
+    T2CONbits.TON = 1;
 }
 
 void _ISR_NO_PSV _T2Interrupt()
@@ -83,59 +84,42 @@ void _ISR_NO_PSV _T2Interrupt()
     switch (estado_pwm)
     {
     case 0:
-        LATDbits.LATD0 = 0;
-        LATDbits.LATD1 = 0;
-        LATDbits.LATD2 = 0;
-        LATDbits.LATD3 = 0;
-        LATDbits.LATD4 = 0;
-        TMR2 = 0;
-        PR2 = T20ms;
+        LATDbits.LATD0 = 1;
+        PR2 = duty1;
+        PWM_acumula = duty1;
         estado_pwm = 1;
         break;
     case 1:
-        LATDbits.LATD0 = 1;
-        TMR2 = 0;
-        PR2 = duty1;
+        LATDbits.LATD0 = 0;
+        LATDbits.LATD1 = 1;
+        PR2 = duty2;
+        PWM_acumula += duty2;
         estado_pwm = 2;
         break;
     case 2:
-        LATDbits.LATD0 = 0;
-        LATDbits.LATD1 = 1;
-        LATDbits.LATD2 = 0;
-        LATDbits.LATD3 = 0;
-        LATDbits.LATD4 = 0;
-        TMR2 = 0;
-        PR2 = duty2;
+        LATDbits.LATD1 = 0;
+        LATDbits.LATD2 = 1;
+        PR2 = duty3;
+        PWM_acumula += duty3;
         estado_pwm = 3;
         break;
     case 3:
-        LATDbits.LATD0 = 0;
-        LATDbits.LATD1 = 0;
-        LATDbits.LATD2 = 1;
-        LATDbits.LATD3 = 0;
-        LATDbits.LATD4 = 0;
-        TMR2 = 0;
-        PR2 = duty3;
+        LATDbits.LATD2 = 0;
+        LATDbits.LATD3 = 1;
+        PR2 = duty4;
+        PWM_acumula += duty4;
         estado_pwm = 4;
         break;
     case 4:
-        LATDbits.LATD0 = 0;
-        LATDbits.LATD1 = 0;
-        LATDbits.LATD2 = 0;
-        LATDbits.LATD3 = 1;
-        LATDbits.LATD4 = 0;
-        TMR2 = 0;
-        PR2 = duty4;
+        LATDbits.LATD3 = 0;
+        LATDbits.LATD8 = 1;
+        PR2 = duty5;
+        PWM_acumula += duty5;
         estado_pwm = 5;
         break;
     case 5:
-        LATDbits.LATD0 = 0;
-        LATDbits.LATD1 = 0;
-        LATDbits.LATD2 = 0;
-        LATDbits.LATD3 = 0;
-        LATDbits.LATD4 = 1;
-        TMR2 = 0;
-        PR2 = duty5;
+        LATDbits.LATD8 = 0;
+        PR2 = T20ms - PWM_acumula;
         estado_pwm = 0;
         break;
     }

@@ -19,11 +19,11 @@ unsigned int duty1, duty2, duty3, duty4, duty5;
 
 void inicDuty()
 {
-    duty1 = DUTY_MAX / 2;
-    duty2 = DUTY_MAX / 2;
-    duty3 = DUTY_MAX / 2;
-    duty4 = DUTY_MAX / 2;
-    duty5 = DUTY_MAX / 2;
+    duty1 = (DUTY_MAX + DUTY_MIN) / 2;
+    duty2 = (DUTY_MAX + DUTY_MIN) / 2;
+    duty3 = (DUTY_MAX + DUTY_MIN) / 2;
+    duty4 = (DUTY_MAX + DUTY_MIN) / 2;
+    duty5 = (DUTY_MAX + DUTY_MIN) / 2;
 }
 
 /**
@@ -36,4 +36,18 @@ void moverPosicionSegura()
     duty3 = S3_SAFE;
     duty4 = S4_SAFE;
     duty5 = S5_SAFE;
+}
+
+void inicPWM()
+{
+    TRISDbits.TRISD0 = 0; // Servo 1
+    TRISDbits.TRISD1 = 0; // Servo 2
+    TRISDbits.TRISD2 = 0; // Servo 3
+    TRISDbits.TRISD3 = 0; // Servo 4
+    TRISDbits.TRISD8 = 0; // Servo 5
+    LATDbits.LATD0 = 0;
+    LATDbits.LATD1 = 0;
+    LATDbits.LATD2 = 0;
+    LATDbits.LATD3 = 0;
+    LATDbits.LATD8 = 0;
 }
