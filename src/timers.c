@@ -30,7 +30,7 @@ void Delay_ms(int delay)
     if (delay > 2)
     {
         T9CONbits.TCKPS = 1; // preescaler	1:8
-        PR9 = delay * (125000 / 8);
+        PR9 = delay * (20000 / 8);
     }
 
     T9CONbits.TCS = 0;
@@ -134,9 +134,9 @@ void inicT3()
     T3CONbits.TCKPS = 0;
     T3CONbits.TCS = 0;
     T3CONbits.TGATE = 0;
-    T3CONbits.TON = 1;
     IEC0bits.T3IE = 1;
     IFS0bits.T3IF = 0;
+    T3CONbits.TON = 1;
 }
 
 // Rutina de atencion a las interrupciones del T3
@@ -144,6 +144,18 @@ void _ISR_NO_PSV _T3Interrupt()
 {
     AD1CON1bits.SAMP = 1; // Habilitar muestreo
     IFS0bits.T3IF = 0;    // Apagar el flag de petición de interrupción
+}
+
+void inicT4()
+{
+    // TMR4 = 0;
+    // PR4 = ;
+    // T4CONbits.TCKPS = 0;
+    // T4CONbits.TCS = 0;
+    // T4CONbits.TGATE = 0;
+    // IEC1bits.T4IE = 1;
+    // IFS1bits.T4IF = 0;
+    // T4CONbits.TON = 1;
 }
 
 // Inicializar el temporizador 5 (escribe en la ventana LCD) cada 2.5ms
@@ -155,8 +167,8 @@ void inicT5()
     T5CONbits.TCS = 0;
     IEC1bits.T5IE = 1;
     T5CONbits.TGATE = 0;
-    T5CONbits.TON = 1;
     IFS1bits.T5IF = 0;
+    T5CONbits.TON = 1;
 }
 
 /**

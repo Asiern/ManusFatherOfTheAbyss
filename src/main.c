@@ -92,8 +92,8 @@ int main(int argc, char const* argv[])
 
     // Antes de terminar mover los servos a una posición segura
     moverPosicionSegura();
-    while (1)
-        ;
+    Delay_ms(25);
+    Delay_ms(25);
 
     return 0;
 }
