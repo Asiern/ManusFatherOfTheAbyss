@@ -20,7 +20,7 @@
 extern unsigned int DUTY_MIN; // valor minimo de DUTY
 extern unsigned int DUTY_MAX; // valor maximo de DUTY
 
-#define DUTY_AUGMENT 5
+#define DUTY_AUGMENT 30
 
 // Safe positions
 #define S1_SAFE 3650

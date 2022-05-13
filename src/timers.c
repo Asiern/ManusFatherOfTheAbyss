@@ -149,8 +149,8 @@ void _ISR_NO_PSV _T3Interrupt()
 void inicT4()
 {
     TMR4 = 0;
-    PR4 = 20000 - 1;
-    T4CONbits.TCKPS = 0;
+    PR4 = 4000 - 1;
+    T4CONbits.TCKPS = 2;
     T4CONbits.TCS = 0;
     T4CONbits.TGATE = 0;
     IEC1bits.T4IE = 1;
