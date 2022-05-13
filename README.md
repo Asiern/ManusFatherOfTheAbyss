@@ -9,7 +9,7 @@
 | B      | RB9  | Eje Horizontal del joystick pequeño | -      |
 | B      | RB15 | RS                                  | LCD    |
 | D      | RD6  | Pulsador S3                         | CN15   |
-| B      | RD13 | Pulsador del joystick pequeño       | -      |
+| D      | RD13 | Pulsador del joystick pequeño       | CN19   |
 
 ## Controles
 
