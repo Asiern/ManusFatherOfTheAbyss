@@ -10,6 +10,7 @@
 
 // T2 se utiliza para simular el pwm
 // T3 se utiliza para el modulo ADC
+// T4 se utiliza para el calculo del duty
 // T5 se utiliza para escribir en la ventanaLCD
 // T7 se utiliza para el cronometro
 // T9 se utiliza para las funciones de Delay
@@ -27,6 +28,7 @@ void Delay_us(int delay);
 // Timers
 void inicT2();
 void inicT3();
+void inicT4();
 void inicT5();
 void inicT7();
 

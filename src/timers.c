@@ -148,14 +148,46 @@ void _ISR_NO_PSV _T3Interrupt()
 
 void inicT4()
 {
-    // TMR4 = 0;
-    // PR4 = ;
-    // T4CONbits.TCKPS = 0;
-    // T4CONbits.TCS = 0;
-    // T4CONbits.TGATE = 0;
-    // IEC1bits.T4IE = 1;
-    // IFS1bits.T4IF = 0;
-    // T4CONbits.TON = 1;
+    TMR4 = 0;
+    PR4 = 20000 - 1;
+    T4CONbits.TCKPS = 0;
+    T4CONbits.TCS = 0;
+    T4CONbits.TGATE = 0;
+    IEC1bits.T4IE = 1;
+    IFS1bits.T4IF = 0;
+    T4CONbits.TON = 1;
+}
+
+void _ISR_NO_PSV _T4Interrupt()
+{
+    if (controlServos == CONTROL_ANALOGICO)
+    {
+        if (duty1objetivo < duty1)
+            duty1 -= DUTY_AUGMENT;
+        else
+            duty1 += DUTY_AUGMENT;
+
+        if (duty2objetivo < duty2)
+            duty2 -= DUTY_AUGMENT;
+        else
+            duty2 += DUTY_AUGMENT;
+
+        if (duty3objetivo < duty3)
+            duty3 -= DUTY_AUGMENT;
+        else
+            duty3 += DUTY_AUGMENT;
+
+        if (duty4objetivo < duty4)
+            duty4 -= DUTY_AUGMENT;
+        else
+            duty4 += DUTY_AUGMENT;
+
+        if (duty5objetivo < duty5)
+            duty5 -= DUTY_AUGMENT;
+        else
+            duty5 += DUTY_AUGMENT;
+    }
+    IFS1bits.T4IF = 0;
 }
 
 // Inicializar el temporizador 5 (escribe en la ventana LCD) cada 2.5ms

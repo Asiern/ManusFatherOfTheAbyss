@@ -51,6 +51,8 @@ int main(int argc, char const* argv[])
     inicPWM();
     inicT2();
 
+    inicT4();
+
     // Copiar mensajes en la ventana LCD
     copiarFlashRam(Mens_LCD_1, 0);
     copiarFlashRam(Mens_LCD_2, 1);
@@ -63,9 +65,6 @@ int main(int argc, char const* argv[])
     copiarFlashRam(Mens_LCD_9, 8);
     copiarFlashRam(Mens_LCD_10, 9);
     copiarFlashRam(Mens_LCD_11, 10);
-    copiarFlashRam(Mens_LCD_12, 11);
-    copiarFlashRam(Mens_LCD_13, 12);
-    copiarFlashRam(Mens_LCD_14, 13);
 
     while (!end)
     {
@@ -77,11 +76,11 @@ int main(int argc, char const* argv[])
         }
         if (controlServos == CONTROL_ANALOGICO)
         {
-            duty1 = conversionAnalogicoAServo(valoresFinalesJPeq.x);
-            duty2 = conversionAnalogicoAServo(valoresFinalesJPeq.y);
-            duty3 = conversionAnalogicoAServo(valoresFinalesJGrande.x);
-            duty4 = conversionAnalogicoAServo(valoresFinalesJGrande.y);
-            duty5 = conversionAnalogicoAServo(palancaFinal);
+            duty1objetivo = conversionAnalogicoAServo(valoresFinalesJPeq.x);
+            duty2objetivo = conversionAnalogicoAServo(valoresFinalesJPeq.y);
+            duty3objetivo = conversionAnalogicoAServo(valoresFinalesJGrande.x);
+            duty4objetivo = conversionAnalogicoAServo(valoresFinalesJGrande.y);
+            duty5objetivo = conversionAnalogicoAServo(palancaFinal);
         }
         conversionDeci(&(ventanaLCD[LCD_S1_S2][3]), duty1, 4);
         conversionDeci(&(ventanaLCD[LCD_S1_S2][11]), duty2, 4);
@@ -90,10 +89,17 @@ int main(int argc, char const* argv[])
         conversionDeci(&(ventanaLCD[LCD_S5][3]), duty5, 4);
     }
 
-    // Antes de terminar mover los servos a una posición segura
     moverPosicionSegura();
-    Delay_ms(25);
-    Delay_ms(25);
+    while (abs(duty1 - duty1objetivo) > DUTY_AUGMENT || abs(duty2 - duty2objetivo) > DUTY_AUGMENT ||
+           abs(duty3 - duty3objetivo) > DUTY_AUGMENT || abs(duty4 - duty4objetivo) > DUTY_AUGMENT ||
+           abs(duty5 - duty5objetivo) > DUTY_AUGMENT)
+    {
+        conversionDeci(&(ventanaLCD[LCD_S1_S2][3]), duty1, 4);
+        conversionDeci(&(ventanaLCD[LCD_S1_S2][11]), duty2, 4);
+        conversionDeci(&(ventanaLCD[LCD_S3_S4][3]), duty3, 4);
+        conversionDeci(&(ventanaLCD[LCD_S3_S4][11]), duty4, 4);
+        conversionDeci(&(ventanaLCD[LCD_S5][3]), duty5, 4);
+    }
 
     return 0;
 }
