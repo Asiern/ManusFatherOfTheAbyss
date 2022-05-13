@@ -16,14 +16,15 @@ unsigned int DUTY_MIN = T20ms / 20 * MINPWM; // valor minimo de DUTY
 unsigned int DUTY_MAX = T20ms / 20 * MAXPWM; // valor maximo de DUTY
 
 unsigned int duty1, duty2, duty3, duty4, duty5;
+unsigned int duty1objetivo, duty2objetivo, duty3objetivo, duty4objetivo, duty5objetivo;
 
 void inicDuty()
 {
-    duty1 = (DUTY_MAX + DUTY_MIN) / 2;
-    duty2 = (DUTY_MAX + DUTY_MIN) / 2;
-    duty3 = (DUTY_MAX + DUTY_MIN) / 2;
-    duty4 = (DUTY_MAX + DUTY_MIN) / 2;
-    duty5 = (DUTY_MAX + DUTY_MIN) / 2;
+    duty1 = duty1objetivo = (DUTY_MAX + DUTY_MIN) / 2;
+    duty2 = duty2objetivo = (DUTY_MAX + DUTY_MIN) / 2;
+    duty3 = duty3objetivo = (DUTY_MAX + DUTY_MIN) / 2;
+    duty4 = duty4objetivo = (DUTY_MAX + DUTY_MIN) / 2;
+    duty5 = duty5objetivo = (DUTY_MAX + DUTY_MIN) / 2;
 }
 
 /**
@@ -31,11 +32,11 @@ void inicDuty()
  */
 void moverPosicionSegura()
 {
-    duty1 = S1_SAFE;
-    duty2 = S2_SAFE;
-    duty3 = S3_SAFE;
-    duty4 = S4_SAFE;
-    duty5 = S5_SAFE;
+    duty1objetivo = S1_SAFE;
+    duty2objetivo = S2_SAFE;
+    duty3objetivo = S3_SAFE;
+    duty4objetivo = S4_SAFE;
+    duty5objetivo = S5_SAFE;
 }
 
 void inicPWM()

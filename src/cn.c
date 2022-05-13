@@ -24,7 +24,6 @@ void inicCN()
 
 void _ISR_NO_PSV _CNInterrupt()
 {
-    int a;
     // Interrupcion S3
     if (!PORTDbits.RD6)
         currentDisplayLine = mod(currentDisplayLine + 1, LCD_ROWS); // Actualizar valor de currentDisplayLine

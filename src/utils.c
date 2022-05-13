@@ -54,3 +54,8 @@ unsigned int conversionAnalogicoAServo(unsigned int valorAnalogico)
 {
     return DUTY_MIN + ((valorAnalogico / 1023.0) * (DUTY_MAX - DUTY_MIN));
 }
+
+int abs(int val)
+{
+    return (val < 0 ? (-val) : val);
+}
