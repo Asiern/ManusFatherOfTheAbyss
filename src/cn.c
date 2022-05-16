@@ -14,6 +14,10 @@
 #include "p24HJ256GP610A.h"
 #include "utils.h"
 
+/**
+ * @brief Inicializar registros del módulo CN y habilitar la interrupción de los pines CN15 y CN19
+ *
+ */
 void inicCN()
 {
     CNEN1bits.CN15IE = 1; // Habilitar interrupciones del pulsador S3
@@ -22,6 +26,10 @@ void inicCN()
     IFS1bits.CNIF = 0;    // Apagar flag de interrupcion del módulo CN
 }
 
+/**
+ * @brief Rutina de atención a las interrupciones del módulo CN
+ *
+ */
 void _ISR_NO_PSV _CNInterrupt()
 {
     // Interrupcion S3

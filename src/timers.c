@@ -22,6 +22,11 @@ unsigned int cronoFlag = 0;
 unsigned int estado_pwm = 0;
 unsigned int PWM_acumula = 0;
 
+/**
+ * @brief Función de delay haciendo uso del timer 9
+ *
+ * @param delay tiempo en ms
+ */
 void Delay_ms(int delay)
 {
     TMR9 = 0;            // Inicializar registro contador
@@ -47,6 +52,11 @@ void Delay_ms(int delay)
     T9CONbits.TON = 0;
 }
 
+/**
+ * @brief Función de delay haciendo uso del timer 9
+ *
+ * @param delay tiempo en us
+ */
 void Delay_us(int delay)
 {
     TMR9 = 0;            // Inicializar registro contador
@@ -66,7 +76,12 @@ void Delay_us(int delay)
     T9CONbits.TON = 0;
 }
 
-// Interrumpir cada 20ms
+/**
+ * @brief Inicializar registros del temporizador 2 utilizado para generar los pulsos PWM
+ *
+ * Interrumpe cada 20ms
+ *
+ */
 void inicT2()
 {
     TMR2 = 0;
@@ -79,6 +94,11 @@ void inicT2()
     T2CONbits.TON = 1;
 }
 
+/**
+ * @brief Rutina de atención a las interrupciones del T2
+ * Mediante una máquina de estados, se generan los pulsos PWM de los 5 servos conectados
+ *
+ */
 void _ISR_NO_PSV _T2Interrupt()
 {
     switch (estado_pwm)
@@ -126,7 +146,11 @@ void _ISR_NO_PSV _T2Interrupt()
     IFS0bits.T2IF = 0;
 }
 
-// Interrumpir cada 1ms
+/**
+ * @brief Inicializar registros del timer 3 para que interrumpa cada 1 ms
+ * Utilizado para iniciar muestreos en el módulo ADC
+ *
+ */
 void inicT3()
 {
     TMR3 = 0;
@@ -139,13 +163,20 @@ void inicT3()
     T3CONbits.TON = 1;
 }
 
-// Rutina de atencion a las interrupciones del T3
+/**
+ * @brief Rutina de atencion a las interrupciones del T3
+ *
+ */
 void _ISR_NO_PSV _T3Interrupt()
 {
-    AD1CON1bits.SAMP = 1; // Habilitar muestreo
+    AD1CON1bits.SAMP = 1; // Iniciar muestreo
     IFS0bits.T3IF = 0;    // Apagar el flag de petición de interrupción
 }
 
+/**
+ * @brief Inicializar registros del timer 4 utilizado para modificar los valores de los duty
+ *
+ */
 void inicT4()
 {
     TMR4 = 0;
@@ -158,6 +189,11 @@ void inicT4()
     T4CONbits.TON = 1;
 }
 
+/**
+ * @brief Rutina de atención a las interrupciones del T4
+ *
+ *
+ */
 void _ISR_NO_PSV _T4Interrupt()
 {
     if (controlServos == CONTROL_ANALOGICO)
@@ -190,7 +226,11 @@ void _ISR_NO_PSV _T4Interrupt()
     IFS1bits.T4IF = 0;
 }
 
-// Inicializar el temporizador 5 (escribe en la ventana LCD) cada 2.5ms
+/**
+ * @brief Inicializar temporizador 5 para que interrumpa cada 2.5ms
+ * De manera que se escriba en la LCD un caracter cada 2.5ms
+ *
+ */
 void inicT5()
 {
     TMR5 = 0;
@@ -263,6 +303,10 @@ void _ISR_NO_PSV _T5Interrupt()
     IFS1bits.T5IF = 0; // Apagar flag de interrupciones
 }
 
+/**
+ * @brief Inicializar termporizador 7 para que interrumpa cada 10ms
+ *
+ */
 void inicT7()
 {
     TMR7 = 0;            // Inicializar el registro de cuenta
@@ -287,6 +331,10 @@ void _ISR_NO_PSV _T7Interrupt()
     IFS3bits.T7IF = 0; // Apagar el flag de petición de interrupción
 }
 
+/**
+ * @brief Función de cronómertro
+ *
+ */
 void cronometro() // control del tiempo mediante el temporizador 7
 {
 

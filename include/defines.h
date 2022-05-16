@@ -69,4 +69,4 @@
 #define MINPWM 0.5 // Duracion minima pulso PWM (en milisegundos)
 #define MAXPWM 2.5 // Duracion maxima pulso PWM (en milisegundos)
 
-extern unsigned int end;
+extern unsigned int end; // Flag para indicar fin del programa

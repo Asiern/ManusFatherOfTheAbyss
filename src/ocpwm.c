@@ -15,9 +15,13 @@
 unsigned int DUTY_MIN = T20ms / 20 * MINPWM; // valor minimo de DUTY
 unsigned int DUTY_MAX = T20ms / 20 * MAXPWM; // valor maximo de DUTY
 
-unsigned int duty1, duty2, duty3, duty4, duty5;
-unsigned int duty1objetivo, duty2objetivo, duty3objetivo, duty4objetivo, duty5objetivo;
+unsigned int duty1, duty2, duty3, duty4, duty5;                                         // Dutys de los servos
+unsigned int duty1objetivo, duty2objetivo, duty3objetivo, duty4objetivo, duty5objetivo; // Dutys objetivo de los servos
 
+/**
+ * @brief Inicializar los valores de los duty a un valor intermedio
+ *
+ */
 void inicDuty()
 {
     duty1 = duty1objetivo = (DUTY_MAX + DUTY_MIN) / 2;
@@ -39,6 +43,10 @@ void moverPosicionSegura()
     duty5objetivo = S5_SAFE;
 }
 
+/**
+ * @brief Inicializar los puertos de los servos como salida
+ *
+ */
 void inicPWM()
 {
     TRISDbits.TRISD0 = 0; // Servo 1

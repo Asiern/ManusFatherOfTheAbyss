@@ -103,8 +103,13 @@ void inicADC()
     AD1CON1bits.ADON = 1; // Habilitar el modulo ADC
 }
 
+/**
+ * @brief Calcular la media de las muestras tomadas
+ *
+ */
 void calcularMediaMuestras()
 {
+    // Variables locales
     int i, Temp = 0, Pot = 0, Palanca = 0;
     axis jp;
     jp.x = 0;
@@ -112,6 +117,7 @@ void calcularMediaMuestras()
     axis jg;
     jg.x = 0;
     jg.y = 0;
+
     // Sumas
     for (i = 0; i < NUM_MUESTRAS; i++)
     {
@@ -123,6 +129,7 @@ void calcularMediaMuestras()
         jg.y += jgVec[i].y;
         Palanca += jPalancaVec[i];
     }
+
     // Temperatura
     tempFinal = Temp / NUM_MUESTRAS;
     conversionDeci(&(ventanaLCD[LCD_TEMP][12]), tempFinal, 4);
@@ -148,6 +155,10 @@ void calcularMediaMuestras()
     conversionDeci(&(ventanaLCD[LCD_JPalanca][8]), palancaFinal, 4);
 }
 
+/**
+ * @brief Rutina de atención a las interrupciones del módulo ADC
+ *
+ */
 void _ISR_NO_PSV _ADC1Interrupt()
 {
     unsigned int ADCValue = ADC1BUF0;
@@ -181,11 +192,13 @@ void _ISR_NO_PSV _ADC1Interrupt()
     AD1CHS0bits.CH0SA = listaPuertos[indicePuerto];
     muestrasActuales++; // Aumentar valor del contador de muestras
 
+    // Comprobar si hemos tomado las muestras necesarias para calcular las medias
     if (muestrasActuales == NUM_PUERTOS * NUM_MUESTRAS)
     {
         calcularMedias = 1; // Habilitar flag para calcular medias
         muestrasActuales = 0;
     }
+
     IFS0bits.AD1IF = 0;   // Apagar flag de interrupcion
     AD1CON1bits.SAMP = 0; // Apagar flag de sampleo
 }

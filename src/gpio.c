@@ -11,6 +11,10 @@
 #include "gpio.h"
 #include "p24HJ256GP610A.h"
 
+/**
+ * @brief Inicializar pulsadores
+ *
+ */
 void inicPulsadores()
 {
     // Definir pines AN16 - AN31 como pines digitales para evitar problemas
@@ -19,6 +23,10 @@ void inicPulsadores()
     TRISDbits.TRISD6 = 1; // Definir los pines del pulsador S3 como entrada
 }
 
+/**
+ * @brief Inicializar puertos
+ *
+ */
 void inicPuertos()
 {
     TRISBbits.TRISB0 = 1;

@@ -22,6 +22,10 @@
 #pragma config POSCMD = XT    // XT oscillator
 #pragma config FWDTEN = OFF   // Watchdog Timer: Disabled
 
+/**
+ * @brief Inicializar oscilador a 40Mhz
+ *
+ */
 void inicOscilator()
 {
     // Reloj a 40 MHz para que las instrucciones se ejecuten a 20 MHz.

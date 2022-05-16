@@ -33,6 +33,12 @@ const unsigned char Mens_LCD_12[] = {"12--------------"};
 const unsigned char Mens_LCD_13[] = {"13--------------"};
 const unsigned char Mens_LCD_14[] = {"14--------------"};
 
+/**
+ * @brief Copiar mensaje a la ventanaLCD
+ *
+ * @param texto mensaje a copiar
+ * @param fila fila donde copiar
+ */
 void copiarFlashRam(const unsigned char* texto, unsigned int fila)
 {
     unsigned int j;
@@ -74,6 +80,9 @@ void lcdData(char data)
     RW = 1; // desactivar escritura
 }
 
+/**
+ * @brief Inicializar valores de los registros de la LCD
+ */
 void inicLCD()
 {
     // 15mS delay after Vdd reaches nnVdc before proceeding

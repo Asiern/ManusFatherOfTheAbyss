@@ -18,6 +18,10 @@
 
 unsigned int controlServos = CONTROL_TECLADO;
 
+/**
+ * @brief Inicializar registros de la UART para permitir el envío y recepción mediante interrupciones
+ *
+ */
 void inicUART()
 {
 

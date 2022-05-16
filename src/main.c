@@ -19,7 +19,7 @@
 #include "uart.h"
 #include "utils.h"
 
-unsigned int end = 0;
+unsigned int end = 0; // Flag para indicar fin del programa
 
 int main(int argc, char const* argv[])
 {
@@ -40,6 +40,7 @@ int main(int argc, char const* argv[])
     // Inicializar modulo CN
     inicCN();
 
+    // Inicializar cronómetro
     inicT7();
 
     // Configurar ADC y T3 para realizar muestreos
@@ -49,9 +50,8 @@ int main(int argc, char const* argv[])
     // Inicializar PWM
     inicDuty();
     inicPWM();
-    inicT2();
-
-    inicT4();
+    inicT2(); // Timer para generar pulso PWM
+    inicT4(); // Timer para modificar los valores del duty
 
     // Copiar mensajes en la ventana LCD
     copiarFlashRam(Mens_LCD_1, 0);
@@ -76,12 +76,14 @@ int main(int argc, char const* argv[])
         }
         if (controlServos == CONTROL_ANALOGICO)
         {
+            // Modificar dutys objetivo con los valores de los joystick
             duty1objetivo = conversionAnalogicoAServo(valoresFinalesJPeq.x);
             duty2objetivo = conversionAnalogicoAServo(valoresFinalesJPeq.y);
             duty3objetivo = conversionAnalogicoAServo(valoresFinalesJGrande.x);
             duty4objetivo = conversionAnalogicoAServo(valoresFinalesJGrande.y);
             duty5objetivo = conversionAnalogicoAServo(palancaFinal);
         }
+        // Copiar valores de los duty a la ventana LCD
         conversionDeci(&(ventanaLCD[LCD_S1_S2][3]), duty1, 4);
         conversionDeci(&(ventanaLCD[LCD_S1_S2][11]), duty2, 4);
         conversionDeci(&(ventanaLCD[LCD_S3_S4][3]), duty3, 4);
@@ -90,10 +92,12 @@ int main(int argc, char const* argv[])
     }
 
     moverPosicionSegura();
+    // Esperar a que el brazo se encuentre en la posición segura
     while (abs(duty1 - duty1objetivo) > DUTY_AUGMENT || abs(duty2 - duty2objetivo) > DUTY_AUGMENT ||
            abs(duty3 - duty3objetivo) > DUTY_AUGMENT || abs(duty4 - duty4objetivo) > DUTY_AUGMENT ||
            abs(duty5 - duty5objetivo) > DUTY_AUGMENT)
     {
+        // Copiar valores de los duty a la ventana LCD
         conversionDeci(&(ventanaLCD[LCD_S1_S2][3]), duty1, 4);
         conversionDeci(&(ventanaLCD[LCD_S1_S2][11]), duty2, 4);
         conversionDeci(&(ventanaLCD[LCD_S3_S4][3]), duty3, 4);
