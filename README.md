@@ -7,7 +7,6 @@
 | B      | RB2  | Palanca del joystick grande         | -      |
 | B      | RB8  | Eje Vertical del joystick pequeño   | -      |
 | B      | RB9  | Eje Horizontal del joystick pequeño | -      |
-| B      | RB15 | RS                                  | LCD    |
 | D      | RD6  | Pulsador S3                         | CN15   |
 | D      | RD13 | Pulsador del joystick pequeño       | CN19   |
 
@@ -32,5 +31,12 @@
 
 #### Analógiocs
 
-| Tecla | Uso |
-| ----- | --- |
+| Eje                       | Uso                    |
+| ------------------------- | ---------------------- |
+| Joystick Pequeño X        | Movimiento del servo 1 |
+| Joystick Pequeño Y        | Movimiento del servo 2 |
+| Joystick Pequeño Pulsador | Terminar el programa   |
+| Joystick Grande X         | Movimiento del servo 3 |
+| Joystick Grande Y         | Movimiento del servo 4 |
+| Joystick Grande Palanca   | Movimiento del servo 5 |
+| Pulsador S3               | Scroll de la LCD       |
