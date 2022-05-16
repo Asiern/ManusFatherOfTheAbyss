@@ -1,3 +1,15 @@
+#Manus : El brazo robotico
+
+"Manus" es un brazo robótico controlado por un microcontrolador PIC24, que puede realizar una serie de movimientos mediante el uso de joysticks. Manus también tiene una pantalla LCD y una consola UART, por la que muestra los diferentes valores recogidos por los joysticks, el valor actual de los servomotores que lo están controlando y un cronómetro.
+
+## Funcionamiento General
+
+El movimiento del brazo robótico se realiza mediante dos joysticks: Un joystick pequeño, que lo denominaremos "JP" y un joystick grande "JG".
+Moviendo estos dos joysticks , podremos realizar diferentes movimientos sobre el brazo. Aparte del control analógico de los joysticks, tenemos una pequeña palanca que puede moverse hacia delante o atrás, con la que podremos controlar el cierre y la apertura de la pinza del robot. Esta palanca se puede encontrar al lateral del joystick grande.
+Finalmente, en el caso de que no se tenga acceso a la UART y el usuario quiera ver los diferentes valores de los joysticks, motores,etc... El pulsador S3 hace un scroll en la pantalla LCD, con el que se podrá ir desplazando por los diferentes apartados de las métricas que recogemos.
+En el momento que se quiera dejar de utilizar el brazo, simplemente haz click con el joystick pequeño y el robot comenzará a moverse hacia una posición segura, en la cual se apagará sin riesgo a que se choque con ningún objeto.
+
+
 ## Conexiones
 
 | Puerto | Pin  | Información                         | Módulo |
@@ -29,7 +41,7 @@
 | j          | Aumentar duty servo 5                        |
 | h          | Reducir duty servo 5                         |
 
-#### Analógiocs
+#### Analógicos
 
 | Eje                       | Uso                    |
 | ------------------------- | ---------------------- |
