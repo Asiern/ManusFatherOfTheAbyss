@@ -1,4 +1,4 @@
-#Manus : El brazo robotico
+# Manus : El brazo robotico
 
 "Manus" es un brazo robótico controlado por un microcontrolador PIC24, que puede realizar una serie de movimientos mediante el uso de joysticks. Manus también tiene una pantalla LCD y una consola UART, por la que muestra los diferentes valores recogidos por los joysticks, el valor actual de los servomotores que lo están controlando y un cronómetro.
 
